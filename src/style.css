@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #092327;
+    color: white;
+    margin: 0px;
+}
+header{
+    background-color: #0B5351;
+}
+
+header *{
+    display: inline;
+}
+#plus-icon, #hamburger-icon{
+    height: 16px;
+    transition-duration: 0.3s;
+    /* transform: rotate(45deg); */
+}
+
+h1{
+    display: none;
+    font-weight: 900;
+}
+
+h2{
+    font-weight: 400;
+}
+
+@media (min-width: 600px) {
+    h1{
+        display: initial;
+    }
+    #hamburger-icon{
+        height: 39px;
+        /* transform: rotate(45deg); */
+    }
+    #plus-icon{
+        height: 26px;
+    }
+}

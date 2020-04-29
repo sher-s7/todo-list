@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.25" height="21" viewBox="0 0 24.25 21">
+  <g id="hamburger-icon" transform="translate(2.5 2.5)">
+    <line id="Line_7" data-name="Line 7" y2="19.25" transform="translate(19.25) rotate(90)" fill="none" stroke="#062727" stroke-linecap="round" stroke-width="5"/>
+    <line id="Line_8" data-name="Line 8" y2="19.25" transform="translate(19.25 8) rotate(90)" fill="none" stroke="#062727" stroke-linecap="round" stroke-width="5"/>
+    <line id="Line_9" data-name="Line 9" y2="19.25" transform="translate(19.25 16) rotate(90)" fill="none" stroke="#062727" stroke-linecap="round" stroke-width="5"/>
+  </g>
+</svg>
