@@ -1,42 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
-
-body{
-    font-family: 'Roboto', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+html {
+    --scrollbarBG: #0b5351;
+    --thumbBG: #092327;
+}
+body {
+    font-family: "Roboto", sans-serif;
     background-color: #092327;
     color: white;
-    margin: 0px;
+    margin: 0;
 }
-header{
-    background-color: #0B5351;
+header {
+    background-color: #0b5351;
 }
 
-header *{
+header * {
     display: inline;
 }
-#plus-icon, #hamburger-icon{
+#plus-icon,
+#hamburger-icon {
     height: 16px;
     transition-duration: 0.3s;
     /* transform: rotate(45deg); */
 }
 
-h1{
+h1 {
     display: none;
     font-weight: 900;
 }
 
-h2{
+h2 {
     font-weight: 400;
 }
 
+h3 {
+    margin: 0;
+}
+
+.sidenav {
+    background-color: #0f3c43;
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: fixed;
+    left: 0;
+    /* display: none; */
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+.sidenav::-webkit-scrollbar {
+    width: 15px;
+}
+.sidenav::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+}
+.sidenav::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 4px solid var(--scrollbarBG);
+}
+
 @media (min-width: 600px) {
-    h1{
+    h1 {
         display: initial;
     }
-    #hamburger-icon{
+    #hamburger-icon {
         height: 39px;
         /* transform: rotate(45deg); */
     }
-    #plus-icon{
+    #plus-icon {
         height: 26px;
+    }
+
+    .sidenav {
+        width: 300px;
     }
 }
