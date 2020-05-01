@@ -3,6 +3,8 @@ import HamburgerIcon from './assets/hamburger-icon2x.png'
 
 export function generateHeader(){
     const header = document.createElement('header');
+    let ul = document.createElement('ul')
+    ul.className = 'header-list'
 
     let plusImg = new Image();
     plusImg.src = PlusIcon;
@@ -17,10 +19,13 @@ export function generateHeader(){
     const projectName = document.createElement('h2');
     projectName.innerHTML = 'Default Project';
 
-    header.appendChild(hamburgerImg);
-    header.appendChild(todoH1);
-    header.appendChild(projectName);
-    header.appendChild(plusImg);
+    for(const item of [hamburgerImg, todoH1, projectName, plusImg]){
+        let li = document.createElement('li')
+        li.appendChild(item)
+        ul.appendChild(li)
+    }
+
+    header.appendChild(ul);
 
     return header;
 

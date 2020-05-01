@@ -11,32 +11,54 @@ body {
 }
 header {
     background-color: #0b5351;
+    width: 100%;
 }
 
-header * {
+header ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+header ul li{
     display: inline;
+    line-height: 52px;
+    /* vertical-align: middle; */
+    /* line-height: normal; */
+    /* text-align: center; */
 }
 #plus-icon,
 #hamburger-icon {
-    height: 16px;
+    height: 25px;
     transition-duration: 0.3s;
-    /* transform: rotate(45deg); */
+    vertical-align: middle;
 }
 
-h1 {
+.header-list li:nth-child(2){
     display: none;
+}
+h1 {
+
     font-weight: 900;
 }
 
 h2 {
     font-weight: 400;
+    padding: 0;
+    margin: 0;
+    
 }
 
 h3 {
     margin: 0;
 }
 
-.sidenav {
+#sidenav {
     background-color: #0f3c43;
     width: 100%;
     height: 100vh;
@@ -44,21 +66,50 @@ h3 {
     overflow-x: hidden;
     position: fixed;
     left: 0;
-    /* display: none; */
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
 
-.sidenav::-webkit-scrollbar {
+#sidenav::-webkit-scrollbar {
     width: 15px;
 }
-.sidenav::-webkit-scrollbar-track {
+#sidenav::-webkit-scrollbar-track {
     background: var(--scrollbarBG);
 }
-.sidenav::-webkit-scrollbar-thumb {
+#sidenav::-webkit-scrollbar-thumb {
     background-color: var(--thumbBG);
     border-radius: 6px;
     border: 4px solid var(--scrollbarBG);
+}
+
+.sidenav-project{
+    font-weight: 500;
+    font-size: 20px;
+    margin: 10px auto;
+}
+
+.expand-dropdown{
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    font-size: 18px;
+}
+
+.not-expanded .sidenav-todo{
+    display: none;
+}
+
+.sidenav-todo{
+    list-style: none;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: 300;
+    transition-duration: 0.5s;
+}
+
+.hidden{
+    display: none;
 }
 
 @media (min-width: 600px) {
@@ -73,7 +124,10 @@ h3 {
         height: 26px;
     }
 
-    .sidenav {
+    #sidenav {
         width: 300px;
+    }
+    .header-list li:nth-child(2){
+        display: initial;
     }
 }
