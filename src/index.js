@@ -7,8 +7,10 @@ import TodoItem from './todoItem'
 import TodoProject from './todoProject'
 import * as ItemEditor from './itemEditor'
 
+import { generateBody } from './body'
 import { generateHeader } from './header'
 import { generateSidebar } from './sidebar'
+import { generateModal } from './newItemModal'
 
 let dropdown_arrows = document.getElementsByClassName('expand-dropdown');
 
@@ -23,6 +25,8 @@ let sidenav = generateSidebar(projects);
 
 contentContainer.appendChild(header);
 contentContainer.appendChild(sidenav);
+contentContainer.appendChild(generateBody(projects[0]))
+contentContainer.appendChild(generateModal())
 
 document.getElementById('plus-div').addEventListener('click', (e) => {
     angle += 90;

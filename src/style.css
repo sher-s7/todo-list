@@ -148,8 +148,18 @@ h3 {
 .hidden{
     display: none;
 }
-
-
+table{
+    display: inline;
+}
+table td{
+    margin: 0;
+    padding: 0;
+    width: 10px;
+    height: 10px;
+    border: 3px solid var(--scrollbarBG);
+    border-radius: 25px;
+    
+  }
 
 /* Large Devices */
 
