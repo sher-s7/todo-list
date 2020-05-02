@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 html {
     --scrollbarBG: #0b5351;
     --thumbBG: #092327;
@@ -12,15 +13,16 @@ body {
 header {
     background-color: #0b5351;
     width: 100%;
+    height: 52px;
 }
 
 header ul{
     padding: 0;
     margin: 0;
     list-style: none;
-    height: 52px;
     display: flex;
     justify-content: space-between;
+    line-height: 52px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -34,17 +36,50 @@ header ul li{
 }
 #plus-icon,
 #hamburger-icon {
-    height: 25px;
-    transition-duration: 0.3s;
     vertical-align: middle;
 }
 
-.header-list li:nth-child(2){
+#plus-text{
     display: none;
 }
-h1 {
+#plus-icon{
+    height: 30px;
+    transition: all 0.2s ease;
+}
 
-    font-weight: 900;
+#hamburger-icon{
+    display: inline-block;
+    cursor: pointer;
+}
+
+#bar1, #bar2, #bar3{
+    width: 32px;
+    height: 6px;
+    background-color: var(--thumbBG);
+    margin: 2px 0;
+    vertical-align: middle;
+    border-radius: 23px;
+    transition: 0.4s;
+}
+/* Rotate first bar */
+.change#bar1 {
+    -webkit-transform: rotate(-45deg) translate(-4.5px, 3.5px);
+    transform: rotate(-45deg) translate(-4.5px, 3.5px);
+  }
+  
+  /* Fade out the second bar */
+  .change#bar2 {
+    opacity: 0;
+  }
+  
+  /* Rotate last bar */
+  .change#bar3 {
+    -webkit-transform: rotate(45deg) translate(-7.5px, -7px);
+    transform: rotate(45deg) translate(-7.5px, -7px);
+  }
+
+.header-list li:nth-child(2){
+    display: none;
 }
 
 h2 {
@@ -94,6 +129,7 @@ h3 {
     cursor: pointer;
     transition-duration: 0.2s;
     font-size: 18px;
+    color: var(--thumbBG);
 }
 
 .not-expanded .sidenav-todo{
@@ -112,18 +148,72 @@ h3 {
     display: none;
 }
 
+
+
+/* Large Devices */
+
 @media (min-width: 600px) {
     h1 {
         display: initial;
+        /* margin-left: 3vw; */
+        font-weight: 900;
+        font-size: 62px;
+        color: var(--thumbBG);
     }
-    #hamburger-icon {
-        height: 39px;
-        /* transform: rotate(45deg); */
+    h2{
+        font-size: 35px;
+        /* margin-left: 23vw; */
     }
-    #plus-icon {
-        height: 26px;
+    header{
+        height: 99px;
+    }
+    header ul{
+        justify-content: space-evenly;
+    }
+    header ul li{
+        margin-top: 25px;
     }
 
+    #hamburger-icon{
+        position: relative;
+        margin-left: -2px;
+        /* margin-left: 25px; */
+    }
+
+    #plus-div{
+        border: 5px solid var(--thumbBG);
+        border-radius: 25px;
+        margin-top: 6px;
+        line-height: 25px;
+        cursor: pointer;
+        transition-duration: 0.2s;
+        /* margin-left: 1vw; */
+    }
+
+    #plus-icon{
+        margin-left: 9px;
+        /* vertical-align: middle; */
+        margin-bottom: 4px;
+        margin-right: 4px;
+        transition-duration: 0.2s;
+        height: 18px;
+    }
+    #plus-text{
+        display: initial;
+        font-size: 20px;
+        margin-right: 10px;
+        color: var(--thumbBG);
+        font-weight: 800;
+    }
+    #plus-div:hover{
+        background-color: var(--thumbBG);
+    }
+    #plus-div:hover #plus-text, #plus-div:hover #plus-icon{
+        color: var(--scrollbarBG);
+    }
+    #plus-div:hover #Line_5, #plus-div:hover #Line_6{
+        stroke: var(--scrollbarBG);
+    }
     #sidenav {
         width: 300px;
     }

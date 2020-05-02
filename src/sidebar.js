@@ -1,6 +1,7 @@
 export function generateSidebar(projects){
     const sidenav = document.createElement('div');
     sidenav.id = 'sidenav'
+    sidenav.className ='hidden'
     for(let i=0; i<50;i++){
     for(const project of projects){
         let sidebarItem = document.createElement('ul');
