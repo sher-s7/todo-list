@@ -1,6 +1,12 @@
+import PlusIcon from './assets/plus-icon.svg'
 export function generateModal() {
     let modal = document.createElement('div')
     modal.className = 'modal'
+
+    let exit = new Image();
+    exit.src = PlusIcon;
+    exit.id = 'exit-modal'
+    exit.style.transform = 'rotate: 45deg;'
 
     let modalContent = document.createElement('div')
     modalContent.className = 'modal-content'
@@ -59,6 +65,7 @@ export function generateModal() {
     modalForm.appendChild(button)
 
     modalContent.appendChild(modalForm)
+    modal.appendChild(exit)
     modal.appendChild(modalContent)
 
     return modal

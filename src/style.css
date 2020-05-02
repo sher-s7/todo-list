@@ -161,6 +161,12 @@ table td{
     
   }
 
+  .modal{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--scrollbarBG);
+  }
 /* Large Devices */
 
 @media (min-width: 600px) {

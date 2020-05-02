@@ -23,10 +23,10 @@ let sidenav = generateSidebar(projects);
 
 
 
+contentContainer.appendChild(generateModal())
 contentContainer.appendChild(header);
 contentContainer.appendChild(sidenav);
 contentContainer.appendChild(generateBody(projects[0]))
-contentContainer.appendChild(generateModal())
 
 document.getElementById('plus-div').addEventListener('click', (e) => {
     angle += 90;
