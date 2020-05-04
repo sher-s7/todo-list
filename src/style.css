@@ -166,7 +166,56 @@ table td{
     width: 100vw;
     height: 100vh;
     background-color: var(--scrollbarBG);
+    z-index: 100;
   }
+  #exit-modal{
+      float: right;
+      margin-right: 15px;
+      margin-top: 15px;
+      margin-bottom: 25px;
+      transform: rotate(45deg) scale(1.5);
+  }
+  .modal-form{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      clear: right;
+  }
+
+  .formItem{
+    width: 90vw;
+    height: 62px;
+    background-color: var(--thumbBG);
+    border: none;
+    margin-bottom: 10px;
+    font-size: 32px;
+  }
+
+  .description{
+      height: 372px;
+  }
+  .modal-priority{
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+  }
+  .modal-priority span{
+      height: 70%;
+      width: 30%;
+      background-color: wheat;
+  }
+
+  #priority-1{
+      background-color: #0F3C43;
+  }
+  #priority-2{
+      background-color: #087260;
+  }
+  #priority-3{
+      background-color: #66A078;
+  }
+ 
 /* Large Devices */
 
 @media (min-width: 600px) {

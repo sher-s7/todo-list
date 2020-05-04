@@ -16,18 +16,18 @@ export function generateModal() {
 
     let title = document.createElement('input')
     title.placeholder = 'Title'
-    title.className = 'title'
+    title.className = 'formItem title'
 
-    let desc = document.createElement('input')
+    let desc = document.createElement('textarea')
     desc.placeholder = 'Description'
-    desc.className = 'description'
+    desc.className = 'formItem description'
 
     let duedateLabel = document.createElement('label')
     duedateLabel.for = 'duedate'
     let duedate = document.createElement('input')
     duedate.type = 'datetime-local'
     duedate.name = 'duedate'
-    duedate.class = 'duedate'
+    duedate.className = 'formItem duedate'
 
     let priority = document.createElement('select')
     priority.class = 'hidden-priority'
@@ -39,22 +39,18 @@ export function generateModal() {
 
     priority.style.display = 'none'
 
-    let priorityButtons = document.createElement('table');
-    priorityButtons.cellSpacing = 0;
-    priorityButtons.className = `priority modal-priority`
+    let priorityButtons = document.createElement('div');
+    priorityButtons.className = `formItem modal-priority`
     priorityButtons.innerHTML = `
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>`
+        <span id="priority-1"></span>
+        <span id="priority-2"></span>
+        <span id="priority-3"></span>    
+    `
 
     let button = document.createElement('input')
     button.type = 'submit'
     button.value = 'Done'
-    button.class = 'submit'
+    button.className = 'formItem submit'
 
     modalForm.appendChild(title)
     modalForm.appendChild(desc)
