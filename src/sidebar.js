@@ -1,3 +1,4 @@
+import {truncate} from './truncate'
 export function generateSidebar(projects){
     const sidenav = document.createElement('div');
     sidenav.id = 'sidenav'
@@ -11,7 +12,7 @@ export function generateSidebar(projects){
         for(const todoItem of project.getTodoItems()){
             let item = document.createElement('li')
             item.className = 'sidenav-todo';
-            item.innerHTML = todoItem.title
+            item.innerHTML = truncate(todoItem.title, 20, 17)
             sidebarItem.appendChild(item)
         
     }

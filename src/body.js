@@ -1,3 +1,5 @@
+import {truncate} from './truncate'
+
 export function generateBody(current_project) {
     let body = document.createElement('div')
     body.id = 'todo-list'
@@ -7,25 +9,25 @@ export function generateBody(current_project) {
         todoItem.className = 'todo-item'
         todo.completed ? todoItem.className = 'completed todo-item' : todoItem.className = 'todo-item';
 
-        let priority = document.createElement('table');
-        priority.cellSpacing = 0;
-        priority.className = `priority priority-${todo.priority}`
+        let priority = document.createElement('div');
         priority.innerHTML = `
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>`
+        <span id="priority-1"></span>
+        <span id="priority-2"></span>
+        <span id="priority-3"></span>    
+    `
+        priority.className = `priority priority-${todo.priority}`
 
         let todoTitle = document.createElement('span')
         todoTitle.className = 'todo-title'
-        todoTitle.innerText = todo.title
+        todoTitle.innerText = truncate(todo.title, 12, 10).toUpperCase()
 
         let todoDate = document.createElement('span')
         todoDate.className = 'todo-date'
         todoDate.innerText = todo.due_date
+
+        let todoCompleted = document.createElement('input')
+        todoCompleted.type = 'checkbox'
+        todoCompleted.className = 'todo-completed'
 
         let todoDesc = document.createElement('p')
         todoDesc.className = 'todo-desc'
@@ -34,9 +36,11 @@ export function generateBody(current_project) {
         todoItem.appendChild(priority)
         todoItem.appendChild(todoTitle)
         todoItem.appendChild(todoDate)
-        todoItem.appendChild(todoDesc)
+        todoItem.appendChild(todoCompleted)
+        
 
         body.appendChild(todoItem);
+        body.appendChild(todoDesc)
     }
     return body
 }

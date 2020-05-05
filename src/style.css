@@ -167,6 +167,7 @@ table td{
     height: 100vh;
     background-color: var(--scrollbarBG);
     z-index: 100;
+    display: none;
   }
   #exit-modal{
       float: right;
@@ -195,12 +196,21 @@ table td{
   .description{
       height: 372px;
   }
-  .modal-priority{
+  .modal-priority, .priority{
       display: flex;
       align-items: center;
       justify-content: space-evenly;
   }
-  .modal-priority span{
+  
+  .priority span:nth-child(1){
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+  }
+  .priority span:nth-child(3){
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+  }
+  .modal-priority span, .priority span{
       height: 70%;
       width: 30%;
       background-color: wheat;
@@ -215,6 +225,45 @@ table td{
   #priority-3{
       background-color: #66A078;
   }
+
+  .todo-item{
+      display: flex;
+      justify-content: start;
+      align-items: center;
+  }
+  #todo-list{
+      width: 97vw;
+      margin: 0 auto;
+      margin-top: 20px;
+  }
+  .priority{
+    width: 68px;
+    height: 26px;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    margin-left: 15px;
+}
+.todo-title{
+    margin-left: 13px;
+    width: 140px;
+    font-size: 19px;
+}
+.todo-date{
+    width: 100px;
+    font-size: 16px;
+    font-weight: 100;
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+  }
+
  
 /* Large Devices */
 

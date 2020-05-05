@@ -18,7 +18,7 @@ let angle = 0;
 
 let projects = [TodoProject('Default Project')];
 let header = generateHeader();
-projects[0].addTodoItem(TodoItem('Eat egg', 'tomorrow', 'asap', 3))
+projects[0].addTodoItem(TodoItem('123456789012345678901', 'Apr 28, 2020', 'asap', 3))
 let sidenav = generateSidebar(projects);
 
 

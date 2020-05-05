@@ -15,6 +15,7 @@ export function generateHeader(){
   </svg>`
     let plusText = document.createElement('span');
     plusText.id = 'plus-text'
+    plusText.className = 'noselect'
     plusText.innerText = 'new task'
     // plusDiv.appendChild(plusImg)
     plusDiv.appendChild(plusText)
