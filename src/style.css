@@ -161,22 +161,23 @@ table td{
     
   }
 
-  .modal{
+  #modal{
     position: fixed;
     width: 100vw;
     height: 100vh;
     background-color: var(--scrollbarBG);
     z-index: 100;
     display: none;
+    overflow-y: scroll;
   }
   #exit-modal{
       float: right;
-      margin-right: 15px;
-      margin-top: 15px;
+      margin-right: 20px;
+      margin-top: 20px;
       margin-bottom: 25px;
       transform: rotate(45deg) scale(1.5);
   }
-  .modal-form{
+  #modal-form{
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -195,6 +196,7 @@ table td{
 
   .description{
       height: 372px;
+      resize: vertical;
   }
   .modal-priority, .priority{
       display: flex;

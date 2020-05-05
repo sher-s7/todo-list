@@ -1,7 +1,7 @@
 import PlusIcon from './assets/plus-icon.svg'
 export function generateModal() {
     let modal = document.createElement('div')
-    modal.className = 'modal'
+    modal.id = 'modal'
 
     let exit = new Image();
     exit.src = PlusIcon;
@@ -12,7 +12,7 @@ export function generateModal() {
     modalContent.className = 'modal-content'
 
     let modalForm = document.createElement('form')
-    modalForm.className = 'modal-form'
+    modalForm.id = 'modal-form'
 
     let title = document.createElement('input')
     title.placeholder = 'Title'
@@ -25,9 +25,18 @@ export function generateModal() {
     let duedateLabel = document.createElement('label')
     duedateLabel.for = 'duedate'
     let duedate = document.createElement('input')
-    duedate.type = 'datetime-local'
+    duedate.type = 'date'
     duedate.name = 'duedate'
     duedate.className = 'formItem duedate'
+    let today = new Date();
+    let year = today.getFullYear()
+    let month = today.getMonth()
+    let day = today.getDay()
+
+    month.toString().length == 1 ? month = `0${month}` : month=month;
+    day.toString().length == 1 ? day = `0${day}` : day=day
+    console.log(`${year}-${month}-${day}`)
+    duedate.defaultValue = `${year}-${month}-${day}`
 
     let priority = document.createElement('select')
     priority.class = 'hidden-priority'
@@ -63,6 +72,10 @@ export function generateModal() {
     modalContent.appendChild(modalForm)
     modal.appendChild(exit)
     modal.appendChild(modalContent)
+
+    exit.addEventListener('click', ()=>{
+        modal.style.display = 'none'
+    })
 
     return modal
 

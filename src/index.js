@@ -60,6 +60,16 @@ window.addEventListener('click', (e) => {
             }
         }
     }
-})
+});
 
+document.getElementById('plus-div').addEventListener('click', () => {
+    document.getElementById('modal').style.display = 'block';
+});
 
+document.getElementById('modal-form').addEventListener('submit', (e) =>{
+    e.preventDefault();
+    console.log(e.target[0].value)
+    console.log(e.target[1].value)
+    console.log(e.target[2].value)
+    console.log(e.target[3].value)
+});
