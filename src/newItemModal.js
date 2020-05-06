@@ -16,6 +16,7 @@ export function generateModal() {
 
     let title = document.createElement('input')
     title.placeholder = 'Title'
+    title.maxLength = 25
     title.className = 'formItem title'
 
     let desc = document.createElement('textarea')
@@ -58,7 +59,7 @@ export function generateModal() {
 
     let button = document.createElement('input')
     button.type = 'submit'
-    button.value = 'Done'
+    button.value = 'DONE'
     button.className = 'formItem submit'
 
     modalForm.appendChild(title)

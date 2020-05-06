@@ -1,11 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+*{
+    font-family: "Roboto", sans-serif;
+}
 html {
     --scrollbarBG: #0b5351;
     --thumbBG: #092327;
 }
 body {
-    font-family: "Roboto", sans-serif;
     background-color: #092327;
     color: white;
     margin: 0;
@@ -187,15 +189,28 @@ table td{
 
   .formItem{
     width: 90vw;
-    height: 62px;
+    height: 8vh;
     background-color: var(--thumbBG);
     border: none;
     margin-bottom: 10px;
     font-size: 32px;
+    color: white;
+    text-indent: 5px;
+  }
+  .submit{
+      border: 9px solid var(--thumbBG);
+      background-color: transparent;
+      color: var(--thumbBG);
+      font-weight: 900;
+  }
+
+  ::placeholder{
+      opacity: 1;
+      color: var(--scrollbarBG);
   }
 
   .description{
-      height: 372px;
+      height: 45vh;
       resize: vertical;
   }
   .modal-priority, .priority{
@@ -227,10 +242,23 @@ table td{
   #priority-3{
       background-color: #66A078;
   }
-
   .todo-item{
+      padding: 5px;
+      border: 5px solid var(--scrollbarBG);
+  }
+
+  .todo-secondary{
+    padding-top: 7px;
+    margin-top: 7px;
+    border-top: var(--scrollbarBG) 1px solid;
+  }
+  .collapsed .todo-secondary{
+      display: none;
+      
+  }
+  .todo-main{
       display: flex;
-      justify-content: start;
+      justify-content: space-between;
       align-items: center;
   }
   #todo-list{
@@ -241,20 +269,19 @@ table td{
   .priority{
     width: 68px;
     height: 26px;
-    margin: 0;
-    padding: 0;
-    font-size: 0;
-    margin-left: 15px;
 }
 .todo-title{
-    margin-left: 13px;
-    width: 140px;
+    
     font-size: 19px;
 }
 .todo-date{
     width: 100px;
     font-size: 16px;
     font-weight: 100;
+}
+
+#edit-item{
+    float: right;
 }
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */

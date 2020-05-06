@@ -18,7 +18,7 @@ let angle = 0;
 
 let projects = [TodoProject('Default Project')];
 let header = generateHeader();
-projects[0].addTodoItem(TodoItem('123456789012345678901', 'Apr 28, 2020', 'asap', 3))
+projects[0].addTodoItem(TodoItem('12345678901234', 'Apr 28, 2020', 'Among web professionals, "web development" usually refers to the main non-design aspects of building websites: writing markup and coding.[2] Web development may use content management systems (CMS) to make content changes easier and available with basic technical skills.', 3))
 let sidenav = generateSidebar(projects);
 
 
