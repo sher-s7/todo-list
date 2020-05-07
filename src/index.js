@@ -62,6 +62,12 @@ window.addEventListener('click', (e) => {
             }
         }
     }
+    if(e.target.classList.contains('todo-main') || e.target.classList.contains('todo-title') || e.target.classList.contains('todo-date') || e.target.classList.contains('todo-secondary')){
+        e.target.closest('.todo-item').classList.toggle('collapsed')
+    }
+    if(e.target.classList.contains('todo-item')){
+        e.target.classList.toggle('collapsed')
+    }
 });
 
 document.getElementById('plus-div').addEventListener('click', () => {
@@ -69,7 +75,7 @@ document.getElementById('plus-div').addEventListener('click', () => {
 });
 
 // Modal Form event listener
-document.getElementById('modal-form').addEventListener('submit', (e) =>{
+document.getElementById('modal-form').addEventListener('submit', (e) => {
     e.preventDefault();
     let splittedDate = e.target[2].value.split('-')
     let date = new Date()
@@ -78,16 +84,17 @@ document.getElementById('modal-form').addEventListener('submit', (e) =>{
     date.setMonth(splittedDate[1])
     date.setDate(splittedDate[2])
     console.log(date)
-    let newItem = TodoItem(e.target[0].value,date,e.target[1].value,e.target[3].value)
+    let newItem = TodoItem(e.target[0].value, date, e.target[1].value, e.target[3].value)
     current_project.addTodoItem(date)
 
     //update sidebar with new item
     let item = document.createElement('li')
-            item.className = 'sidenav-todo';
-            item.innerHTML = truncate(newItem.title, 20, 17)
+    item.className = 'sidenav-todo';
+    item.innerHTML = truncate(newItem.title, 20, 17)
     document.getElementById(`project-${projects.indexOf(current_project)}`).appendChild(item)
 
     document.getElementById('todo-list').appendChild(generateTaskTemplate(newItem))
-    e.target.reset() 
+    e.target.reset()
+    e.target.parentNode.parentNode.style.display = 'none'
 });
 

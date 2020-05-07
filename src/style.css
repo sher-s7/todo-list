@@ -154,6 +154,7 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
     transition-duration: 0.2s;
     font-size: 18px;
     color: var(--thumbBG);
+    text-shadow: 1px 1px black;
 }
 
 .not-expanded .sidenav-todo {
@@ -266,6 +267,7 @@ table td {
 }
 .todo-item {
     padding: 5px;
+    margin-bottom: 5px;
     border: 5px solid var(--scrollbarBG);
 }
 
@@ -385,5 +387,9 @@ table td {
     }
     .header-list li:nth-child(2) {
         display: initial;
+    }
+
+    .todo-main, .todo-item{
+        cursor: pointer;
     }
 }
