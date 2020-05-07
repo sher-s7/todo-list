@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 export function generateBody(current_project) {
     let body = document.createElement('div')
     body.id = 'todo-list'
-    for (const todo of current_project.getTodoItems()) {
+    for (const todo in current_project.getTodoItems()) {
         let todoItem = generateTaskTemplate(todo)
 
         body.appendChild(todoItem)
@@ -15,6 +15,7 @@ export function generateBody(current_project) {
 export function generateTaskTemplate(todo) {
     let todoItem = document.createElement('div')
     todo.completed ? todoItem.className = 'completed todo-item collapsed' : todoItem.className = 'todo-item collapsed';
+    todoItem.id = todo.id
     let todoMainInfo = document.createElement('div');
     todoMainInfo.className = 'todo-main';
 
@@ -52,7 +53,7 @@ export function generateTaskTemplate(todo) {
     fullTitle.innerText = todo.title
 
     let editButton = document.createElement('span')
-    editButton.id = 'edit-item'
+    editButton.className = 'edit-item'
     editButton.innerText = 'Edit'
 
     let secondaryInfo = document.createElement('div')

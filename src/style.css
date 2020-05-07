@@ -296,13 +296,18 @@ table td {
 .todo-title {
     font-size: 19px;
 }
+.full-todo-title{
+    font-weight: 400;
+}
 .todo-date {
     width: 100px;
     font-size: 16px;
     font-weight: 100;
 }
-
-#edit-item {
+.todo-desc{
+    font-weight: 300;
+}
+.edit-item {
     float: right;
 }
 .noselect {

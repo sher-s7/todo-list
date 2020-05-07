@@ -62,11 +62,18 @@ window.addEventListener('click', (e) => {
             }
         }
     }
+    //expand and collapse todo items on click
     if(e.target.classList.contains('todo-main') || e.target.classList.contains('todo-title') || e.target.classList.contains('todo-date') || e.target.classList.contains('todo-secondary')){
         e.target.closest('.todo-item').classList.toggle('collapsed')
     }
     if(e.target.classList.contains('todo-item')){
         e.target.classList.toggle('collapsed')
+    }
+
+    //edit tasks
+    if(e.target.classList.contains('edit-item')){
+        let modal = document.getElementById('modal')
+        // let task = 
     }
 });
 
@@ -84,8 +91,8 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     date.setMonth(splittedDate[1])
     date.setDate(splittedDate[2])
     console.log(date)
-    let newItem = TodoItem(e.target[0].value, date, e.target[1].value, e.target[3].value)
-    current_project.addTodoItem(date)
+    let newItem = TodoItem(current_project.getCounter(),e.target[0].value, date, e.target[1].value, e.target[3].value)
+    current_project.addTodoItem(newItem)
 
     //update sidebar with new item
     let item = document.createElement('li')
@@ -97,4 +104,5 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     e.target.reset()
     e.target.parentNode.parentNode.style.display = 'none'
 });
+
 

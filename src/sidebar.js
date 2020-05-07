@@ -14,7 +14,7 @@ export function generateSidebar(projects){
         sidebarItem.innerHTML=`${project.getName()} <span class="expand-dropdown">▶</span>`
         sidebarItem.className='sidenav-project'
         sidebarItem.classList.add('not-expanded')
-        for(const todoItem of project.getTodoItems()){
+        for(const todoItem in project.getTodoItems()){
             let item = document.createElement('li')
             item.className = 'sidenav-todo';
             item.innerHTML = truncate(todoItem.title, 20, 17)
