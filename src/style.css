@@ -172,6 +172,10 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
 .hidden {
     display: none;
 }
+.darken{
+    background-color: transparent !important;
+    box-shadow: inset 0px 0px 0px 5px var(--scrollbarBG);
+}
 table {
     display: inline;
 }

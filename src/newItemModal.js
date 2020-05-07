@@ -41,7 +41,7 @@ export function generateModal() {
     duedate.defaultValue = `${year}-${month}-${day}`
 
     let priority = document.createElement('select')
-    priority.class = 'hidden-priority'
+    priority.className = 'hidden-priority'
     for (let i = 1; i <= 3; i++) {
         let option = document.createElement('option')
         option.value = i
@@ -53,9 +53,9 @@ export function generateModal() {
     let priorityButtons = document.createElement('div');
     priorityButtons.className = `formItem modal-priority`
     priorityButtons.innerHTML = `
-        <span id="priority-1"></span>
-        <span id="priority-2"></span>
-        <span id="priority-3"></span>    
+        <span class="priority-option" id="priority-1"></span>
+        <span class="priority-option darken" id="priority-2"></span>
+        <span class="priority-option darken" id="priority-3"></span>    
     `
 
     let button = document.createElement('input')

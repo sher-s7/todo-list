@@ -42,11 +42,9 @@ for (const arrow of dropdown_arrows) {
 }
 
 window.addEventListener('click', (e) => {
-
     //expanded/close sidebar, toggle hamburger animation
     if (e.target.id == 'hamburger-icon' || e.target.classList.contains('bar')) {
         document.getElementById('sidenav').classList.toggle('hidden')
-        console.log('hello')
         let bars = document.getElementsByClassName('bar');
         for (const bar of bars) {
             bar.classList.toggle('change')
@@ -73,24 +71,47 @@ window.addEventListener('click', (e) => {
     //edit tasks
     if(e.target.classList.contains('edit-item')){
         let modal = document.getElementById('modal')
-        // let task = 
+        let task = current_project.getTodoItems()[e.target.parentNode.parentNode.id]
+        console.log(task)
     }
 });
 
 document.getElementById('plus-div').addEventListener('click', () => {
     document.getElementById('modal').style.display = 'block';
+    
 });
+//Modal priority buttons functionality
+for(const priority of document.getElementsByClassName('priority-option')){
+    priority.addEventListener('click', (e)=>{
+        if(e.target.id == 'priority-1'){
+            e.target.classList.remove('darken')
+            e.target.parentNode.childNodes[3].classList.add('darken')
+            e.target.parentNode.childNodes[5].classList.add('darken')
+            e.target.parentNode.parentNode.getElementsByTagName('select')[0].selectedIndex = '0'
+        }
+        if(e.target.id == 'priority-2'){
+            e.target.parentNode.childNodes[1].classList.remove('darken')
+            e.target.classList.remove('darken')
+            e.target.parentNode.childNodes[5].classList.add('darken')
+            e.target.parentNode.parentNode.getElementsByTagName('select')[0].selectedIndex = '1'
+        }
+        if(e.target.id == 'priority-3'){
+            e.target.parentNode.childNodes[1].classList.remove('darken')
+            e.target.parentNode.childNodes[3].classList.remove('darken')
+            e.target.classList.remove('darken')
+            e.target.parentNode.parentNode.getElementsByTagName('select')[0].selectedIndex = '2'
+        }
+    })
+}
 
 // Modal Form event listener
 document.getElementById('modal-form').addEventListener('submit', (e) => {
     e.preventDefault();
     let splittedDate = e.target[2].value.split('-')
     let date = new Date()
-    console.log(splittedDate)
     date.setFullYear(splittedDate[0])
     date.setMonth(splittedDate[1])
     date.setDate(splittedDate[2])
-    console.log(date)
     let newItem = TodoItem(current_project.getCounter(),e.target[0].value, date, e.target[1].value, e.target[3].value)
     current_project.addTodoItem(newItem)
 
