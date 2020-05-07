@@ -15,6 +15,7 @@ export function generateModal() {
     modalForm.id = 'modal-form'
 
     let title = document.createElement('input')
+    title.required = true
     title.placeholder = 'Title'
     title.maxLength = 25
     title.className = 'formItem title'
@@ -29,14 +30,14 @@ export function generateModal() {
     duedate.type = 'date'
     duedate.name = 'duedate'
     duedate.className = 'formItem duedate'
+
     let today = new Date();
     let year = today.getFullYear()
     let month = today.getMonth()
-    let day = today.getDay()
+    let day = today.getDate()
 
     month.toString().length == 1 ? month = `0${month}` : month=month;
     day.toString().length == 1 ? day = `0${day}` : day=day
-    console.log(`${year}-${month}-${day}`)
     duedate.defaultValue = `${year}-${month}-${day}`
 
     let priority = document.createElement('select')

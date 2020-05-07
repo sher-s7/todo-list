@@ -14,5 +14,8 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "date-fns": "^2.13.0"
   }
 }

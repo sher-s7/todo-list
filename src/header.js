@@ -1,6 +1,6 @@
 import PlusIcon from './assets/plus-icon.svg'
 
-export function generateHeader(){
+export function generateHeader(current_project){
     const header = document.createElement('header');
     let ul = document.createElement('ul')
     ul.className = 'header-list'
@@ -40,7 +40,7 @@ export function generateHeader(){
     todoH1.innerHTML = 'TODO';
 
     const projectName = document.createElement('h2');
-    projectName.innerHTML = 'Default Project';
+    projectName.innerHTML = current_project.getName();
 
     for(const item of [hamburger, todoH1, projectName, plusDiv]){
         let li = document.createElement('li')

@@ -7,18 +7,19 @@ import TodoItem from './todoItem'
 import TodoProject from './todoProject'
 import * as ItemEditor from './itemEditor'
 
-import { generateBody } from './body'
+import { generateBody, generateTaskTemplate } from './body'
 import { generateHeader } from './header'
 import { generateSidebar } from './sidebar'
 import { generateModal } from './newItemModal'
+import { truncate } from './truncate'
 
 let dropdown_arrows = document.getElementsByClassName('expand-dropdown');
 
 let angle = 0;
 
 let projects = [TodoProject('Default Project')];
-let header = generateHeader();
-projects[0].addTodoItem(TodoItem('12345678901234', 'Apr 28, 2020', 'Among web professionals, "web development" usually refers to the main non-design aspects of building websites: writing markup and coding.[2] Web development may use content management systems (CMS) to make content changes easier and available with basic technical skills.', 3))
+let current_project = projects[0]
+let header = generateHeader(current_project);
 let sidenav = generateSidebar(projects);
 
 
@@ -44,7 +45,8 @@ window.addEventListener('click', (e) => {
 
     //expanded/close sidebar, toggle hamburger animation
     if (e.target.id == 'hamburger-icon' || e.target.classList.contains('bar')) {
-        sidenav.classList.toggle('hidden')
+        document.getElementById('sidenav').classList.toggle('hidden')
+        console.log('hello')
         let bars = document.getElementsByClassName('bar');
         for (const bar of bars) {
             bar.classList.toggle('change')
@@ -66,10 +68,26 @@ document.getElementById('plus-div').addEventListener('click', () => {
     document.getElementById('modal').style.display = 'block';
 });
 
+// Modal Form event listener
 document.getElementById('modal-form').addEventListener('submit', (e) =>{
     e.preventDefault();
-    console.log(e.target[0].value)
-    console.log(e.target[1].value)
-    console.log(e.target[2].value)
-    console.log(e.target[3].value)
+    let splittedDate = e.target[2].value.split('-')
+    let date = new Date()
+    console.log(splittedDate)
+    date.setFullYear(splittedDate[0])
+    date.setMonth(splittedDate[1])
+    date.setDate(splittedDate[2])
+    console.log(date)
+    let newItem = TodoItem(e.target[0].value,date,e.target[1].value,e.target[3].value)
+    current_project.addTodoItem(date)
+
+    //update sidebar with new item
+    let item = document.createElement('li')
+            item.className = 'sidenav-todo';
+            item.innerHTML = truncate(newItem.title, 20, 17)
+    document.getElementById(`project-${projects.indexOf(current_project)}`).appendChild(item)
+
+    document.getElementById('todo-list').appendChild(generateTaskTemplate(newItem))
+    e.target.reset() 
 });
+
