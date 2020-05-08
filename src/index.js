@@ -19,6 +19,8 @@ let angle = 0;
 
 let projects = [TodoProject('Default Project')];
 let current_project = projects[0]
+current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 2))
+console.log(current_project.getTodoItems())
 let header = generateHeader(current_project);
 let sidenav = generateSidebar(projects);
 

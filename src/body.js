@@ -5,7 +5,8 @@ export function generateBody(current_project) {
     let body = document.createElement('div')
     body.id = 'todo-list'
     for (const todo in current_project.getTodoItems()) {
-        let todoItem = generateTaskTemplate(todo)
+        console.log(current_project[todo])
+        let todoItem = generateTaskTemplate(current_project.getTodoItems()[todo])
 
         body.appendChild(todoItem)
     }
