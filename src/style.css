@@ -310,6 +310,10 @@ table {
 .todo-title {
     font-size: 19px;
 }
+.completed .todo-title{
+    color: #707070;
+    text-decoration: line-through;
+}
 .full-todo-title{
     font-weight: 400;
 }

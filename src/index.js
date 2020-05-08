@@ -76,6 +76,14 @@ window.addEventListener('click', (e) => {
         let task = current_project.getTodoItems()[e.target.parentNode.parentNode.id]
         console.log(task)
     }
+
+    //mark task as completed
+    if(e.target.classList.contains('todo-completed')){
+        console.log(current_project.getTodoItems()[e.target.parentNode.parentNode.id].completed)
+        e.target.parentNode.parentNode.classList.toggle('completed')
+        current_project.getTodoItems()[e.target.parentNode.parentNode.id].completed = !current_project.getTodoItems()[e.target.parentNode.parentNode.id].completed
+        console.log(current_project.getTodoItems()[e.target.parentNode.parentNode.id].completed)
+    }
 });
 
 document.getElementById('plus-div').addEventListener('click', () => {
