@@ -61,15 +61,15 @@ window.addEventListener('click', (e) => {
         }
     }
     //expand and collapse todo items on click
-    if(e.target.classList.contains('todo-main') || e.target.classList.contains('todo-title') || e.target.classList.contains('todo-date') || e.target.classList.contains('todo-secondary')){
+    if (e.target.classList.contains('todo-main') || e.target.classList.contains('todo-title') || e.target.classList.contains('todo-date') || e.target.classList.contains('todo-secondary')) {
         e.target.closest('.todo-item').classList.toggle('collapsed')
     }
-    if(e.target.classList.contains('todo-item')){
+    if (e.target.classList.contains('todo-item')) {
         e.target.classList.toggle('collapsed')
     }
 
     //edit tasks
-    if(e.target.classList.contains('edit-item')){
+    if (e.target.classList.contains('edit-item')) {
         let modal = document.getElementById('modal')
         let task = current_project.getTodoItems()[e.target.parentNode.parentNode.id]
         console.log(task)
@@ -78,24 +78,24 @@ window.addEventListener('click', (e) => {
 
 document.getElementById('plus-div').addEventListener('click', () => {
     document.getElementById('modal').style.display = 'block';
-    
+
 });
 //Modal priority buttons functionality
-for(const priority of document.getElementsByClassName('priority-option')){
-    priority.addEventListener('click', (e)=>{
-        if(e.target.id == 'priority-1'){
+for (const priority of document.getElementsByClassName('priority-option')) {
+    priority.addEventListener('click', (e) => {
+        if (e.target.id == 'priority-1') {
             e.target.classList.remove('darken')
             e.target.parentNode.childNodes[3].classList.add('darken')
             e.target.parentNode.childNodes[5].classList.add('darken')
             e.target.parentNode.parentNode.getElementsByTagName('select')[0].selectedIndex = '0'
         }
-        if(e.target.id == 'priority-2'){
+        if (e.target.id == 'priority-2') {
             e.target.parentNode.childNodes[1].classList.remove('darken')
             e.target.classList.remove('darken')
             e.target.parentNode.childNodes[5].classList.add('darken')
             e.target.parentNode.parentNode.getElementsByTagName('select')[0].selectedIndex = '1'
         }
-        if(e.target.id == 'priority-3'){
+        if (e.target.id == 'priority-3') {
             e.target.parentNode.childNodes[1].classList.remove('darken')
             e.target.parentNode.childNodes[3].classList.remove('darken')
             e.target.classList.remove('darken')
@@ -112,7 +112,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     date.setFullYear(splittedDate[0])
     date.setMonth(splittedDate[1])
     date.setDate(splittedDate[2])
-    let newItem = TodoItem(current_project.getCounter(),e.target[0].value, date, e.target[1].value, e.target[3].value)
+    let newItem = TodoItem(current_project.getCounter(), e.target[0].value, date, e.target[1].value, e.target[3].value)
     current_project.addTodoItem(newItem)
 
     //update sidebar with new item
@@ -123,6 +123,13 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
 
     document.getElementById('todo-list').appendChild(generateTaskTemplate(newItem))
     e.target.reset()
+
+    //reset priority buttons default selection
+    document.querySelector('.priority-option#priority-1').classList.remove('darken')
+    document.querySelector('.priority-option#priority-2').classList.add('darken')
+    document.querySelector('.priority-option#priority-3').classList.add('darken')
+    document.getElementsByTagName('select')[0].selectedIndex = '0'
+
     e.target.parentNode.parentNode.style.display = 'none'
 });
 
