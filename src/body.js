@@ -21,9 +21,13 @@ export function generateTaskTemplate(todo) {
 
     let priority = document.createElement('div');
     priority.innerHTML = `
-        <span id="priority-1"></span>
-        <span id="priority-2"></span>
-        <span id="priority-3"></span>    
+    <table cellpadding="8" cellspacing="0">
+    <tr>
+      <td id="priority-1"></td>
+      <td id="priority-2"></td>
+      <td id="priority-3"></td>
+    </tr>
+  </table>   
     `
     priority.className = `priority priority-${todo.priority}`
 

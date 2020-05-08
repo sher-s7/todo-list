@@ -176,17 +176,7 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
     background-color: transparent !important;
     box-shadow: inset 0px 0px 0px 5px var(--scrollbarBG);
 }
-table {
-    display: inline;
-}
-table td {
-    margin: 0;
-    padding: 0;
-    width: 10px;
-    height: 10px;
-    border: 3px solid var(--scrollbarBG);
-    border-radius: 25px;
-}
+
 
 #modal {
     position: fixed;
@@ -245,13 +235,33 @@ table td {
     justify-content: space-evenly;
 }
 
-.priority span:nth-child(1) {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+table {
+    border: 5px solid var(--scrollbarBG);
+    border-radius: 25px;
+  }
+  
+  td{
+    border-left: 5px solid var(--scrollbarBG);
+    /* width: 20px;
+    height: 20px; */
+  }
+  
+  td:nth-child(1){
+    border-left: none;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+  }
+  
+  td:nth-child(3){
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+
+.priority-1 td:nth-child(2), .priority-1 td:nth-child(3){
+    background-color: transparent !important;
 }
-.priority span:nth-child(3) {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+.priority-2 td:nth-child(3){
+    background-color: transparent !important;
 }
 .modal-priority span,
 .priority span {
