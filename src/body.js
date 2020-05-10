@@ -58,12 +58,12 @@ export function generateTaskTemplate(todo) {
     fullTitle.innerText = todo.title
 
     let editButton = document.createElement('button')
-    editButton.className = 'edit-button'
+    editButton.className = 'kebab'
     let editButtonDropdown = document.createElement('ul')
-    editButtonDropdown.className = 'edit-dropdown hidden'
+    editButtonDropdown.className = 'kebab-dropdown hidden'
     for(const btn of ['EDIT', 'DELETE']){
-        let li = `<li class="dropdown-${btn.toLowerCase()}"><button>${btn}</button></li>`
-        editButtonDropdown.innerHTML+= li
+        let li = `<li><button class='${btn.toLowerCase()}-button ${todo.id}'>${btn}</button></li>`
+        editButtonDropdown.innerHTML += li
     }
     editButton.appendChild(editButtonDropdown)
 

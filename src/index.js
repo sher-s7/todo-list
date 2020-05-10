@@ -43,7 +43,7 @@ for (const arrow of dropdown_arrows) {
     })
 }
 
-window.addEventListener('click', (e) => {
+document.body.addEventListener('click', (e) => {
     //expanded/close sidebar, toggle hamburger animation
     if (e.target.id == 'hamburger-icon' || e.target.classList.contains('bar')) {
         document.getElementById('sidenav').classList.toggle('hidden')

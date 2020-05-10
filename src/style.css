@@ -4,16 +4,19 @@
     font-family: "Roboto", sans-serif;
 }
 html {
-    --scrollbarBG: #0b5351;
-    --thumbBG: #092327;
+    --primary: #333c45;
+    --secondary: #b0b3b8;
+    --dark: #1d2025;
+
+    --border: #eec9a4;
 }
 body {
-    background-color: var(--thumbBG);
+    background-color: var(--dark);
     color: white;
     margin: 0;
 }
 header {
-    background-color: var(--scrollbarBG);
+    background-color: var(--primary);
     width: 100%;
     height: 52px;
 }
@@ -61,7 +64,7 @@ header ul li {
 #bar3 {
     width: 32px;
     height: 6px;
-    background-color: var(--thumbBG);
+    background-color: var(--secondary);
     margin: 2px 0;
     vertical-align: middle;
     border-radius: 23px;
@@ -107,19 +110,20 @@ h3 {
     position: fixed;
     left: 0;
     scrollbar-width: thin;
-    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    scrollbar-color: var(--dark) var(--primary);
+    z-index: 15;
 }
 
 #sidenav::-webkit-scrollbar {
     width: 15px;
 }
 #sidenav::-webkit-scrollbar-track {
-    background: var(--scrollbarBG);
+    background: var(--primary);
 }
 #sidenav::-webkit-scrollbar-thumb {
-    background-color: var(--thumbBG);
+    background-color: var(--dark);
     border-radius: 6px;
-    border: 4px solid var(--scrollbarBG);
+    border: 4px solid var(--primary);
 }
 #new-project{
     margin: 0 auto;
@@ -132,7 +136,7 @@ h3 {
     margin-top: 10px;
     font-weight: 600;
     color: white;
-    background-color: var(--thumbBG);
+    background-color: var(--dark);
     border: transparent;
     -webkit-box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
 -moz-box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
@@ -153,7 +157,7 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
     cursor: pointer;
     transition-duration: 0.2s;
     font-size: 18px;
-    color: var(--thumbBG);
+    color: var(--dark);
     text-shadow: 1px 1px black;
 }
 
@@ -174,7 +178,7 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
 }
 .darken{
     background-color: transparent !important;
-    box-shadow: inset 0px 0px 0px 5px var(--scrollbarBG);
+    box-shadow: inset 0px 0px 0px 5px var(--primary);
 }
 
 
@@ -182,7 +186,7 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background-color: var(--scrollbarBG);
+    background-color: var(--primary);
     z-index: 100;
     display: none;
     overflow-y: scroll;
@@ -205,7 +209,7 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
 .formItem {
     width: 90vw;
     height: 8vh;
-    background-color: var(--thumbBG);
+    background-color: var(--dark);
     border: none;
     margin-bottom: 10px;
     font-size: 32px;
@@ -213,15 +217,15 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
     text-indent: 5px;
 }
 .submit {
-    border: 9px solid var(--thumbBG);
+    border: 9px solid var(--dark);
     background-color: transparent;
-    color: var(--thumbBG);
+    color: var(--dark);
     font-weight: 900;
 }
 
 ::placeholder {
     opacity: 1;
-    color: var(--scrollbarBG);
+    color: var(--primary);
 }
 
 .description {
@@ -236,12 +240,12 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
 }
 
 table {
-    border: 5px solid var(--scrollbarBG);
+    border: 5px solid var(--primary);
     border-radius: 25px;
   }
   
   td{
-    border-left: 5px solid var(--scrollbarBG);
+    border-left: 5px solid var(--primary);
     /* width: 20px;
     height: 20px; */
   }
@@ -271,27 +275,38 @@ table {
 }
 
 #priority-1 {
-    background-color: #0f3c43;
+    background-color: #7b8794;
 }
 #priority-2 {
-    background-color: #087260;
+    background-color: #cbd2d9;
 }
 #priority-3 {
-    background-color: #66a078;
+    background-color: #f5f7fa;
 }
 .todo-item {
     padding: 5px;
     margin-bottom: 5px;
-    border: 5px solid var(--scrollbarBG);
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    background-color: #2e2e2e; transition-duration: 0.2s;
 }
 
 .todo-secondary {
     padding-top: 7px;
     margin-top: 7px;
-    border-top: var(--scrollbarBG) 1px solid;
+    border-top: var(--primary) 1px solid;
+    transform: scaleY(1);
+    transform-origin: top;
+    transition: transform 0.26s ease;
+}
+.collapsed{
+    background: transparent;
 }
 .collapsed .todo-secondary {
     display: none;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.26s ease;
 }
 .todo-main {
     display: flex;
@@ -311,7 +326,7 @@ table {
     font-size: 19px;
 }
 .completed .todo-title{
-    color: #707070;
+    color: #bdbdbd;
     text-decoration: line-through;
 }
 .full-todo-title{
@@ -327,21 +342,22 @@ table {
     display: table;
     overflow-wrap: break-word;
 }
-.edit-button {
+.kebab {
     float: right;
     position: relative;
     background: transparent;
     border: none;
     color: white;
     padding: 0;
+    cursor: pointer;
 }
-.edit-button::after{
+.kebab::after{
     content: '\2807';
     font-size: 20px;
     font-weight: 900;
 }
 
-.edit-dropdown{
+.kebab-dropdown{
     position: absolute;
     list-style: none;
     top: 15px;
@@ -352,12 +368,12 @@ table {
     margin: 0;
     padding: 0;
 }
-.edit-dropdown li{
+.kebab-dropdown li{
     margin-top: 11px;
 }
-.edit-dropdown li button{
-    background-color: var(--scrollbarBG);
-    color: var(--thumbBG);
+.kebab-dropdown li button{
+    background-color: var(--primary);
+    color: var(--dark);
     font-size: 18px;
     font-weight: 500;
     border-radius: 25px;
@@ -365,6 +381,7 @@ table {
     width: 100%;
     height: 30px;
     border: none;
+    cursor: pointer;
 }
 
 .noselect {
@@ -385,7 +402,7 @@ table {
         /* margin-left: 3vw; */
         font-weight: 900;
         font-size: 62px;
-        color: var(--thumbBG);
+        color: var(--dark);
     }
     h2 {
         font-size: 35px;
@@ -408,7 +425,7 @@ table {
     }
 
     #plus-div {
-        border: 5px solid var(--thumbBG);
+        border: 5px solid var(--dark);
         border-radius: 25px;
         margin-top: 6px;
         line-height: 25px;
@@ -430,19 +447,19 @@ table {
         display: initial;
         font-size: 20px;
         margin-right: 10px;
-        color: var(--thumbBG);
+        color: var(--dark);
         font-weight: 800;
     }
     #plus-div:hover {
-        background-color: var(--thumbBG);
+        background-color: var(--dark);
     }
     #plus-div:hover #plus-text,
     #plus-div:hover #plus-icon {
-        color: var(--scrollbarBG);
+        color: var(--primary);
     }
     #plus-div:hover #Line_5,
     #plus-div:hover #Line_6 {
-        stroke: var(--scrollbarBG);
+        stroke: var(--primary);
     }
     #sidenav {
         width: 300px;
