@@ -57,9 +57,25 @@ export function generateTaskTemplate(todo) {
     fullTitle.className = 'full-todo-title'
     fullTitle.innerText = todo.title
 
-    let editButton = document.createElement('span')
-    editButton.className = 'edit-item'
-    editButton.innerText = 'Edit'
+    let editButton = document.createElement('button')
+    editButton.className = 'edit-button'
+    let editButtonDropdown = document.createElement('ul')
+    editButtonDropdown.className = 'edit-dropdown hidden'
+    for(const btn of ['EDIT', 'DELETE']){
+        let li = `<li class="dropdown-${btn.toLowerCase()}"><button>${btn}</button></li>`
+        editButtonDropdown.innerHTML+= li
+    }
+    editButton.appendChild(editButtonDropdown)
+
+    document.addEventListener('click', (e)=>{
+        if(editButton.contains(e.target)){
+            editButtonDropdown.classList.toggle('hidden')
+        }else{
+            if(!editButtonDropdown.classList.contains('hidden')){
+                editButtonDropdown.classList.toggle('hidden')
+            }
+        }
+    })
 
     let secondaryInfo = document.createElement('div')
     secondaryInfo.className = 'todo-secondary'
