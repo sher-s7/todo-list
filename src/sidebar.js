@@ -11,7 +11,7 @@ export function generateSidebar(projects){
     for(const project of projects){
         let sidebarItem = document.createElement('ul');
         sidebarItem.id=`project-${projects.indexOf(project)}`
-        sidebarItem.innerHTML=`${project.getName()} <span class="expand-dropdown">▶</span>`
+        sidebarItem.innerHTML=`${project.getName().toUpperCase()} <span class="expand-dropdown">▶</span>`
         sidebarItem.className='sidenav-project'
         sidebarItem.classList.add('not-expanded')
         for(const todoItem in project.getTodoItems()){

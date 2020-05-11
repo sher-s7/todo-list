@@ -2,14 +2,15 @@ import PlusIcon from './assets/plus-icon.svg'
 export function generateModal() {
     let modal = document.createElement('div')
     modal.id = 'modal'
-
-    let exit = new Image();
-    exit.src = PlusIcon;
-    exit.id = 'exit-modal'
-    exit.style.transform = 'rotate: 45deg;'
+    modal.className = 'hidden'
 
     let modalContent = document.createElement('div')
     modalContent.className = 'modal-content'
+
+    let h3 = document.createElement('h3')
+    h3.id = 'modal-header'
+    h3.innerText = 'NEW TASK'
+    modalContent.appendChild(h3)
 
     let modalForm = document.createElement('form')
     modalForm.id = 'modal-form'
@@ -53,6 +54,7 @@ export function generateModal() {
     let priorityButtons = document.createElement('div');
     priorityButtons.className = `formItem modal-priority`
     priorityButtons.innerHTML = `
+        <label id="plabel">Priority</label>
         <span class="priority-option" id="priority-1"></span>
         <span class="priority-option darken" id="priority-2"></span>
         <span class="priority-option darken" id="priority-3"></span>    
@@ -72,12 +74,8 @@ export function generateModal() {
     modalForm.appendChild(button)
 
     modalContent.appendChild(modalForm)
-    modal.appendChild(exit)
     modal.appendChild(modalContent)
 
-    exit.addEventListener('click', ()=>{
-        modal.style.display = 'none'
-    })
 
     return modal
 

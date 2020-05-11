@@ -34,7 +34,7 @@ contentContainer.appendChild(sidenav);
 contentContainer.appendChild(generateBody(projects[0]))
 
 document.getElementById('plus-div').addEventListener('click', () => {
-    angle += 90;
+    angle += 45
     document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
 })
 
@@ -89,7 +89,7 @@ document.body.addEventListener('click', (e) => {
 });
 
 document.getElementById('plus-div').addEventListener('click', () => {
-    document.getElementById('modal').style.display = 'block';
+    document.getElementById('modal').classList.toggle('hidden')
 
 });
 //Modal priority buttons functionality
@@ -97,19 +97,19 @@ for (const priority of document.getElementsByClassName('priority-option')) {
     priority.addEventListener('click', (e) => {
         if (e.target.id == 'priority-1') {
             e.target.classList.remove('darken')
-            e.target.parentNode.childNodes[3].classList.add('darken')
             e.target.parentNode.childNodes[5].classList.add('darken')
+            e.target.parentNode.childNodes[7].classList.add('darken')
             e.target.parentNode.parentNode.getElementsByTagName('select')[0].selectedIndex = '0'
         }
         if (e.target.id == 'priority-2') {
-            e.target.parentNode.childNodes[1].classList.remove('darken')
+            e.target.parentNode.childNodes[3].classList.remove('darken')
             e.target.classList.remove('darken')
-            e.target.parentNode.childNodes[5].classList.add('darken')
+            e.target.parentNode.childNodes[7].classList.add('darken')
             e.target.parentNode.parentNode.getElementsByTagName('select')[0].selectedIndex = '1'
         }
         if (e.target.id == 'priority-3') {
-            e.target.parentNode.childNodes[1].classList.remove('darken')
             e.target.parentNode.childNodes[3].classList.remove('darken')
+            e.target.parentNode.childNodes[5].classList.remove('darken')
             e.target.classList.remove('darken')
             e.target.parentNode.parentNode.getElementsByTagName('select')[0].selectedIndex = '2'
         }
