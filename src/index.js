@@ -16,8 +16,10 @@ import { truncate } from './truncate'
 let dropdown_arrows = document.getElementsByClassName('expand-dropdown');
 
 let angle = 0;
-
 let projects = [TodoProject('Default Project')];
+for(let i=0; i<25; i++){
+    projects.push(TodoProject('Default Project'))
+}
 let current_project = projects[0]
 current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 2))
 console.log(current_project.getTodoItems())
@@ -31,9 +33,9 @@ contentContainer.appendChild(header);
 contentContainer.appendChild(sidenav);
 contentContainer.appendChild(generateBody(projects[0]))
 
-document.getElementById('plus-div').addEventListener('click', (e) => {
+document.getElementById('plus-div').addEventListener('click', () => {
     angle += 90;
-    document.getElementById('plus-icon').style.transform = `rotate(${angle}deg)`
+    document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
 })
 
 for (const arrow of dropdown_arrows) {
@@ -79,10 +81,10 @@ document.body.addEventListener('click', (e) => {
 
     //mark task as completed
     if(e.target.classList.contains('todo-completed')){
-        console.log(current_project.getTodoItems()[e.target.parentNode.parentNode.id].completed)
-        e.target.parentNode.parentNode.classList.toggle('completed')
-        current_project.getTodoItems()[e.target.parentNode.parentNode.id].completed = !current_project.getTodoItems()[e.target.parentNode.parentNode.id].completed
-        console.log(current_project.getTodoItems()[e.target.parentNode.parentNode.id].completed)
+        console.log(current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed)
+        e.target.parentNode.parentNode.parentNode.classList.toggle('completed')
+        current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed = !current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed
+        console.log(current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed)
     }
 });
 

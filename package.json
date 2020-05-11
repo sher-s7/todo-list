@@ -16,6 +16,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "date-fns": "^2.13.0"
+    "date-fns": "^2.13.0",
+    "glyphicons-only-bootstrap": "^1.0.1"
   }
 }

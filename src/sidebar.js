@@ -6,7 +6,7 @@ export function generateSidebar(projects){
     
     let newProject = document.createElement('button')
     newProject.id = 'new-project'
-    newProject.innerHTML = 'NEW PROJECT <span>+</span>'
+    newProject.innerHTML = '<span>+</span> NEW PROJECT'
     sidenav.appendChild(newProject)
     for(const project of projects){
         let sidebarItem = document.createElement('ul');

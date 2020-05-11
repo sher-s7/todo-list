@@ -4,15 +4,16 @@
     font-family: "Roboto", sans-serif;
 }
 html {
-    --primary: #333c45;
-    --secondary: #b0b3b8;
+    --primary: #1f2933;
+    --secondary: #f5f7fa;
     --dark: #1d2025;
 
+    --bg: #2e2e2e;
     --border: #eec9a4;
 }
 body {
     background-color: var(--dark);
-    color: white;
+    color: var(--secondary);
     margin: 0;
 }
 header {
@@ -36,7 +37,6 @@ header ul li {
     display: inline;
     line-height: 52px;
 }
-#plus-icon,
 #hamburger-icon {
     vertical-align: middle;
 }
@@ -44,14 +44,26 @@ header ul li {
 #plus-text {
     display: none;
 }
-#plus-div,
-#plus-icon {
+#plus-div{
     transition-duration: 0.2s;
+    display: inline-block;
+    line-height: 52px;
 }
-#plus-icon {
-    width: 26px;
-    height: 26px;
-    /* transition-duration: 0.2s; */
+#plus-icon{
+
+}
+#plusbar1, #plusbar2 {
+    width: 32px;
+    height: 5px;
+    border: 1px solid var(--border);
+    border-radius: 23px;
+    background-color: transparent;
+}
+#plusbar2{
+    transform: rotate(90deg);
+}
+#plusbar1{
+    position: absolute;
 }
 
 #hamburger-icon {
@@ -63,8 +75,9 @@ header ul li {
 #bar2,
 #bar3 {
     width: 32px;
-    height: 6px;
-    background-color: var(--secondary);
+    height: 5px;
+    background-color: transparent;
+    border: 1px solid var(--border);
     margin: 2px 0;
     vertical-align: middle;
     border-radius: 23px;
@@ -72,8 +85,8 @@ header ul li {
 }
 /* Rotate first bar */
 .change#bar1 {
-    -webkit-transform: rotate(-45deg) translate(-4.5px, 3.5px);
-    transform: rotate(-45deg) translate(-4.5px, 3.5px);
+    -webkit-transform: rotate(-45deg) translate(-5.5px, 5.5px);
+    transform: rotate(-45deg) translate(-5.5px, 5.5px);
 }
 
 /* Fade out the second bar */
@@ -102,15 +115,13 @@ h3 {
 }
 
 #sidenav {
-    background-color: #0f3c43;
+    background-color: var(--primary);
     width: 100%;
     height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden;
     position: fixed;
     left: 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--dark) var(--primary);
     z-index: 15;
 }
 
@@ -118,17 +129,21 @@ h3 {
     width: 15px;
 }
 #sidenav::-webkit-scrollbar-track {
-    background: var(--primary);
+    background: var(--dark);
 }
 #sidenav::-webkit-scrollbar-thumb {
-    background-color: var(--dark);
-    border-radius: 6px;
-    border: 4px solid var(--primary);
+    background-color: var(--secondary);
+    border-radius: 9px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    /* width: 15px; */
 }
 #new-project{
     margin: 0 auto;
-    width: 70vw;
-    height: 4vh;
+    height: 32px;
+    padding-left: 26px;
+    padding-right: 26px;
+    border: 1px solid var(--border);
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -136,14 +151,15 @@ h3 {
     margin-top: 10px;
     font-weight: 600;
     color: white;
-    background-color: var(--dark);
-    border: transparent;
-    -webkit-box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
--moz-box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
-box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
+    background-color: var(--bg);
+    
 }
 #new-project span{
-    font-size: 16px;
+    font-size: 30px;
+    line-height: 28px;
+    margin-right: 5px;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--border);
 }
 .sidenav-project {
     font-weight: 500;
@@ -157,8 +173,8 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
     cursor: pointer;
     transition-duration: 0.2s;
     font-size: 18px;
-    color: var(--dark);
-    text-shadow: 1px 1px black;
+    color: var(--bg);
+    -webkit-text-stroke: 1px var(--border);
 }
 
 .not-expanded .sidenav-todo {
@@ -240,12 +256,12 @@ box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.75);
 }
 
 table {
-    border: 5px solid var(--primary);
+    border: 5px solid var(--secondary);
     border-radius: 25px;
   }
   
   td{
-    border-left: 5px solid var(--primary);
+    border-left: 5px solid var(--secondary);
     /* width: 20px;
     height: 20px; */
   }
@@ -286,15 +302,16 @@ table {
 .todo-item {
     padding: 5px;
     margin-bottom: 5px;
-    border: 2px solid var(--border);
+    border: 1px solid var(--border);
     border-radius: 5px;
-    background-color: #2e2e2e; transition-duration: 0.2s;
+    background-color: var(--bg); 
+    transition-duration: 0.2s;
 }
 
 .todo-secondary {
     padding-top: 7px;
     margin-top: 7px;
-    border-top: var(--primary) 1px solid;
+    border-top: var(--border) 1px solid;
     transform: scaleY(1);
     transform-origin: top;
     transition: transform 0.26s ease;
@@ -313,6 +330,50 @@ table {
     justify-content: space-between;
     align-items: center;
 }
+.checkbox-label{
+    position: relative;
+}
+.checkbox-label > input {
+    height: 25px;
+    width: 25px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    /* outline: none; */
+    transition-duration: 0.3s;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+.checkbox-label > input:checked {
+    background-color: var(--bg);
+}
+
+.checkbox-label > input:checked + span::before {
+    content: '\e013';
+    display: block;
+    text-align: center;
+    color: var(--secondary);
+    position: absolute;
+    left: 5.5px;
+    top: 8px;
+    display: inline-block;
+    font-family: "Glyphicons Halflings";
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* .glyphicon{
+    position: absolute;
+    top: 9px;
+    right: 6px;
+} */
+
 #todo-list {
     width: 97vw;
     margin: 0 auto;
@@ -355,6 +416,7 @@ table {
     content: '\2807';
     font-size: 20px;
     font-weight: 900;
+    color: var(--border);
 }
 
 .kebab-dropdown{
@@ -425,8 +487,6 @@ table {
     }
 
     #plus-div {
-        border: 5px solid var(--dark);
-        border-radius: 25px;
         margin-top: 6px;
         line-height: 25px;
         cursor: pointer;
@@ -434,32 +494,18 @@ table {
         /* margin-left: 1vw; */
     }
 
-    #plus-icon {
-        margin-left: 9px;
-        transform: none;
-        /* vertical-align: middle; */
-        margin-bottom: 4px;
-        margin-right: 4px;
-        transition-duration: 0.2s;
-        height: 18px;
-    }
     #plus-text {
         display: initial;
         font-size: 20px;
         margin-right: 10px;
-        color: var(--dark);
+        color: var(--secondary);
         font-weight: 800;
     }
     #plus-div:hover {
         background-color: var(--dark);
     }
-    #plus-div:hover #plus-text,
-    #plus-div:hover #plus-icon {
-        color: var(--primary);
-    }
-    #plus-div:hover #Line_5,
-    #plus-div:hover #Line_6 {
-        stroke: var(--primary);
+    #plus-div:hover #plus-text{
+        color: var(--secondary);
     }
     #sidenav {
         width: 300px;

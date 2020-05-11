@@ -7,18 +7,15 @@ export function generateHeader(current_project){
 
     let plusDiv = document.createElement('div');
     plusDiv.id = 'plus-div'
-    plusDiv.innerHTML = `<svg id='plus-icon' xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
-    <g transform="translate(2.5 2.5)">
-      <line id="Line_5" data-name="Line 5" y2="16" transform="translate(8)" fill="none" stroke="#062727" stroke-linecap="round" stroke-width="5"/>
-      <line id="Line_6" data-name="Line 6" y2="16" transform="translate(16 8) rotate(90)" fill="none" stroke="#062727" stroke-linecap="round" stroke-width="5"/>
-    </g>
-  </svg>`
+    plusDiv.innerHTML = `<div id='plus-icon'>
+                          <div id="plusbar1"></div>
+                          <div id="plusbar2"></div>
+                        </div>`
     let plusText = document.createElement('span');
     plusText.id = 'plus-text'
     plusText.className = 'noselect'
     plusText.innerText = 'new task'
-    // plusDiv.appendChild(plusImg)
-    plusDiv.appendChild(plusText)
+
     
     let hamburger = document.createElement('div')
     let bar1 = document.createElement('div')
@@ -42,7 +39,7 @@ export function generateHeader(current_project){
     const projectName = document.createElement('h2');
     projectName.innerHTML = current_project.getName();
 
-    for(const item of [hamburger, todoH1, projectName, plusDiv]){
+    for(const item of [hamburger, todoH1, projectName, plusDiv, plusText]){
         let li = document.createElement('li')
         li.appendChild(item)
         ul.appendChild(li)
