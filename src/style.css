@@ -253,7 +253,7 @@ h3 {
     color: var(--secondary);
 }
 
-.description {
+#description {
     height: 300px;
     resize: vertical;
 }
@@ -311,7 +311,9 @@ td:nth-child(3) {
     height: 70%;
     width: 30%;
 }
-
+.todo-completed:focus{
+    outline: yellow;
+}
 #priority-1 {
     background-color: #693e3e;
 }

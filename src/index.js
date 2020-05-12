@@ -45,6 +45,16 @@ for (const arrow of dropdown_arrows) {
     })
 }
 
+document.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+
+});
+
+document.getElementById('description').addEventListener('focus', ()=>{
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+})
+
 document.body.addEventListener('click', (e) => {
     //expanded/close sidebar, toggle hamburger animation
     if (e.target.id == 'hamburger-icon' || e.target.classList.contains('bar')) {

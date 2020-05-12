@@ -23,7 +23,8 @@ export function generateModal() {
 
     let desc = document.createElement('textarea')
     desc.placeholder = 'Description'
-    desc.className = 'formItem description'
+    desc.className = 'formItem'
+    desc.id = 'description'
 
     let duedateLabel = document.createElement('label')
     duedateLabel.for = 'duedate'
