@@ -142,7 +142,9 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     document.querySelector('.priority-option#priority-3').classList.add('darken')
     document.getElementsByTagName('select')[0].selectedIndex = '0'
 
-    e.target.parentNode.parentNode.style.display = 'none'
+    angle += 45
+    document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
+    document.getElementById('modal').classList.toggle('hidden')
 });
 
 
