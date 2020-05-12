@@ -232,7 +232,7 @@ h3 {
 
 .formItem {
     width: 80vw;
-    height: 63px;
+    height: 65px;
     background-color: transparent;
     border: 1px solid var(--border);
     border-radius: 5px;
@@ -254,7 +254,7 @@ h3 {
 }
 
 .description {
-    height: 45vh;
+    height: 300px;
     resize: vertical;
 }
 .modal-priority,
