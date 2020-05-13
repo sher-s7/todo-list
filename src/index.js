@@ -22,7 +22,6 @@ for(let i=0; i<25; i++){
 }
 let current_project = projects[0]
 current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 2))
-console.log(current_project.getTodoItems())
 let header = generateHeader(current_project);
 let sidenav = generateSidebar(projects);
 
@@ -86,15 +85,12 @@ document.body.addEventListener('click', (e) => {
     if (e.target.classList.contains('edit-item')) {
         let modal = document.getElementById('modal')
         let task = current_project.getTodoItems()[e.target.parentNode.parentNode.id]
-        console.log(task)
     }
 
     //mark task as completed
     if(e.target.classList.contains('todo-completed')){
-        console.log(current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed)
         e.target.parentNode.parentNode.parentNode.classList.toggle('completed')
         current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed = !current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed
-        console.log(current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed)
     }
 });
 
@@ -132,7 +128,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     let splittedDate = e.target[2].value.split('-')
     let date = new Date()
     date.setFullYear(splittedDate[0])
-    date.setMonth(splittedDate[1])
+    date.setMonth(splittedDate[1]-1)
     date.setDate(splittedDate[2])
     let newItem = TodoItem(current_project.getCounter(), e.target[0].value, date, e.target[1].value, e.target[3].value)
     current_project.addTodoItem(newItem)

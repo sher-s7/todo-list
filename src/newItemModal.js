@@ -35,7 +35,7 @@ export function generateModal() {
 
     let today = new Date();
     let year = today.getFullYear()
-    let month = today.getMonth()
+    let month = today.getMonth() + 1
     let day = today.getDate()
 
     month.toString().length == 1 ? month = `0${month}` : month=month;
