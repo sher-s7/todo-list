@@ -1,0 +1,45 @@
+{
+  "_from": "glyphicons-only-bootstrap",
+  "_id": "glyphicons-only-bootstrap@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-oE+aJaIMRhP5j5cLB69AkYoR73w=",
+  "_location": "/glyphicons-only-bootstrap",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "glyphicons-only-bootstrap",
+    "name": "glyphicons-only-bootstrap",
+    "escapedName": "glyphicons-only-bootstrap",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/glyphicons-only-bootstrap/-/glyphicons-only-bootstrap-1.0.1.tgz",
+  "_shasum": "a04f9a25a20c4613f98f970b07af40918a11ef7c",
+  "_spec": "glyphicons-only-bootstrap",
+  "_where": "/home/sher/the_odin_project/javascript/todo-list",
+  "author": {
+    "name": "ohpyupi",
+    "email": "ohpyupi@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/ohpyupi/glyphicons-only-bootstrap/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Glyphicons-only-bootstrap contains only glyphicon components out of entire Bootstrap. Even if Bootstrap allows a functionality to customize their source code, the source always comes up with normalize.css. For some users who do not want to use normalize.css in Bootstrap, I deleted normalize.css part and this package provides only glyphicons!",
+  "homepage": "https://github.com/ohpyupi/glyphicons-only-bootstrap",
+  "license": "MIT",
+  "main": "",
+  "name": "glyphicons-only-bootstrap",
+  "repository": {
+    "url": "git+https://github.com/ohpyupi/glyphicons-only-bootstrap.git",
+    "type": "git"
+  },
+  "version": "1.0.1"
+}
