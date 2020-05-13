@@ -450,7 +450,8 @@ td:nth-child(3) {
 .todo-desc {
     font-weight: 300;
     display: table;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
+    word-wrap: anywhere;
 }
 .kebab {
     float: right;
