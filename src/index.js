@@ -44,10 +44,6 @@ for (const arrow of dropdown_arrows) {
     })
 }
 
-document.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-
-});
 
 document.getElementById('description').addEventListener('focus', ()=>{
     window.scrollTo(0, 0);
