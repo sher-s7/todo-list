@@ -133,8 +133,11 @@ document.body.addEventListener('click', (e) => {
 
             plusClick()
         };
-        
-        
+    }
+
+    if(e.target.classList.contains('delete-button')){
+        delete current_project.getTodoItems()[e.target.classList[1]]
+        document.getElementById(e.target.classList[1]).remove()
         
     }
     
