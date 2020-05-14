@@ -17,6 +17,7 @@ export function generateSidebar(projects){
         for(const todoItem in project.getTodoItems()){
             let item = document.createElement('li')
             item.className = 'sidenav-todo';
+            item.id = `${projects.indexOf(project)}${todoItem}`
             item.innerHTML = truncate(project.getTodoItems()[todoItem].title, 20, 17)
             sidebarItem.appendChild(item)
         

@@ -130,6 +130,7 @@ document.body.addEventListener('click', (e) => {
             todoItem.textContent = ''
             todoItem.appendChild(updatedTask[0])
             todoItem.appendChild(updatedTask[1])
+            document.getElementById(`${projects.indexOf(current_project)}${e.target.classList[1]}`).innerText = truncate(task_to_edit.title, 20, 17)
 
             plusClick()
         };
@@ -138,6 +139,7 @@ document.body.addEventListener('click', (e) => {
     if(e.target.classList.contains('delete-button')){
         delete current_project.getTodoItems()[e.target.classList[1]]
         document.getElementById(e.target.classList[1]).remove()
+        document.getElementById(`${projects.indexOf(current_project)}${e.target.classList[1]}`).remove(0)
         
     }
     
@@ -181,6 +183,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     //update sidebar with new item
     let item = document.createElement('li')
     item.className = 'sidenav-todo';
+    item.id = `${projects.indexOf(current_project)}${newItem.id}`
     item.innerHTML = truncate(newItem.title, 20, 17)
     document.getElementById(`project-${projects.indexOf(current_project)}`).appendChild(item)
 
