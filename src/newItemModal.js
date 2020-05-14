@@ -1,4 +1,3 @@
-import PlusIcon from './assets/plus-icon.svg'
 export function generateModal() {
     let modal = document.createElement('div')
     modal.id = 'modal'
@@ -7,10 +6,16 @@ export function generateModal() {
     let modalContent = document.createElement('div')
     modalContent.className = 'modal-content'
 
-    let h3 = document.createElement('h3')
-    h3.id = 'modal-header'
-    h3.innerText = 'NEW TASK'
-    modalContent.appendChild(h3)
+    let h3NewTask = document.createElement('h3')
+    h3NewTask.id = 'modal-header-new'
+    h3NewTask.innerText = 'NEW TASK'
+    modalContent.appendChild(h3NewTask)
+
+    let h3Edit = document.createElement('h3')
+    h3Edit.id = 'modal-header-edit'
+    h3Edit.innerText = 'EDIT'
+    h3Edit.className = 'hidden'
+    modalContent.appendChild(h3Edit)
 
     let modalForm = document.createElement('form')
     modalForm.id = 'modal-form'
@@ -61,10 +66,17 @@ export function generateModal() {
         <span class="priority-option darken" id="priority-3"></span>    
     `
 
-    let button = document.createElement('input')
-    button.type = 'submit'
-    button.value = 'DONE'
-    button.className = 'formItem submit'
+    let submit = document.createElement('input')
+    submit.type = 'submit'
+    submit.value = 'DONE'
+    submit.className = 'formItem'
+    submit.id = 'submit'
+
+    let edit = document.createElement('input')
+    edit.type = 'button'
+    edit.value = 'EDIT'
+    edit.className = 'formItem submit hidden'
+    edit.id = 'edit'
 
     modalForm.appendChild(title)
     modalForm.appendChild(desc)
@@ -72,7 +84,8 @@ export function generateModal() {
     modalForm.appendChild(duedate)
     modalForm.appendChild(priority)
     modalForm.appendChild(priorityButtons)
-    modalForm.appendChild(button)
+    modalForm.appendChild(submit)
+    modalForm.appendChild(edit)
 
     modalContent.appendChild(modalForm)
     modal.appendChild(modalContent)

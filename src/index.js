@@ -1,11 +1,11 @@
 import './style.css';
 import './hamburgers.css';
+import { format } from 'date-fns'
 
 let contentContainer = document.getElementById('content');
 
 import TodoItem from './todoItem'
 import TodoProject from './todoProject'
-import * as ItemEditor from './itemEditor'
 
 import { generateBody, generateTaskTemplate } from './body'
 import { generateHeader } from './header'
@@ -25,16 +25,31 @@ current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 2))
 let header = generateHeader(current_project);
 let sidenav = generateSidebar(projects);
 
-
-
 contentContainer.appendChild(generateModal())
 contentContainer.appendChild(header);
 contentContainer.appendChild(sidenav);
 contentContainer.appendChild(generateBody(projects[0]))
 
-document.getElementById('plus-div').addEventListener('click', () => {
+
+function plusClick(){
+    if(angle % 45 == 0){
+        document.getElementById('modal-form').reset()
+        document.querySelector('.priority-option#priority-1').classList.remove('darken')
+        document.querySelector('.priority-option#priority-2').classList.add('darken')
+        document.querySelector('.priority-option#priority-3').classList.add('darken')
+        document.getElementsByTagName('select')[0].selectedIndex = '0'
+    }
     angle += 45
     document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
+    document.getElementById('edit').classList.add('hidden')
+    document.getElementById('modal-header-edit').classList.add('hidden')
+    document.getElementById('submit').classList.remove('hidden')
+    document.getElementById('modal-header-new').classList.remove('hidden')
+    document.getElementById('modal').classList.toggle('hidden')
+}
+
+document.getElementById('plus-div').addEventListener('click', () => {
+    plusClick()
 })
 
 for (const arrow of dropdown_arrows) {
@@ -43,7 +58,6 @@ for (const arrow of dropdown_arrows) {
         arrow.style.cssText == 'transform: rotate(90deg);' ? arrow.style.transform = 'rotate(0deg)' : arrow.style.transform = 'rotate(90deg)'
     })
 }
-
 
 document.getElementById('description').addEventListener('focus', ()=>{
     window.scrollTo(0, 0);
@@ -77,23 +91,49 @@ document.body.addEventListener('click', (e) => {
         e.target.classList.toggle('collapsed')
     }
 
-    //edit tasks
-    if (e.target.classList.contains('edit-item')) {
-        let modal = document.getElementById('modal')
-        let task = current_project.getTodoItems()[e.target.parentNode.parentNode.id]
-    }
-
     //mark task as completed
     if(e.target.classList.contains('todo-completed')){
         e.target.parentNode.parentNode.parentNode.classList.toggle('completed')
         current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed = !current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed
     }
+
+    //edit task functionality
+    if(e.target.classList.contains('edit-button')){
+        let task_to_edit = current_project.getTodoItems()[e.target.classList[1]]
+        angle += 45
+        document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
+
+        document.getElementById('edit').classList.remove('hidden')
+        document.getElementById('submit').classList.add('hidden')
+        document.getElementById('modal-header-edit').classList.remove('hidden')
+        document.getElementById('modal-header-new').classList.add('hidden')
+        let modalform = document.getElementById('modal-form')
+        modalform.querySelector('.title').value = task_to_edit.title
+        modalform.querySelector('#description').value = task_to_edit.description
+        modalform.querySelector('.duedate').value = format(task_to_edit.due_date, 'yyyy-MM-dd')
+        modalform.querySelector(`#priority-${task_to_edit.priority}`).click()
+        document.getElementById('modal').classList.toggle('hidden')
+
+        document.getElementById('edit').onclick = function(){
+            task_to_edit.title = modalform.querySelector('.title').value
+            task_to_edit.description = modalform.querySelector('#description').value
+            let splittedDate = modalform.querySelector('.duedate').value.split('-')
+            let date = new Date()
+            date.setFullYear(splittedDate[0])
+            date.setMonth(splittedDate[1]-1)
+            date.setDate(splittedDate[2])
+            task_to_edit.due_date = date
+            task_to_edit.priority = Number(modalform.querySelector('.hidden-priority').value)
+            console.log(task_to_edit)
+            plusClick()
+        };
+        
+        
+        
+    }
+    
 });
 
-document.getElementById('plus-div').addEventListener('click', () => {
-    document.getElementById('modal').classList.toggle('hidden')
-
-});
 //Modal priority buttons functionality
 for (const priority of document.getElementsByClassName('priority-option')) {
     priority.addEventListener('click', (e) => {
@@ -148,5 +188,3 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
     document.getElementById('modal').classList.toggle('hidden')
 });
-
-

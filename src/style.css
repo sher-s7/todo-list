@@ -213,7 +213,7 @@ h3 {
     margin-top: 12px;
     position: relative;
 }
-#modal-header {
+#modal-header-new, #modal-header-edit {
     display: inline-block;
     color: var(--dark);
     text-shadow: -1px -1px 0 var(--border), 1px -1px 0 var(--border), -1px 1px 0 var(--border), 1px 1px 0 var(--border);
@@ -241,7 +241,7 @@ h3 {
     color: white;
     text-indent: 5px;
 }
-.submit {
+#submit {
     background-color: var(--bg);
     color: var(--border);
     font-weight: 300;
@@ -511,7 +511,7 @@ td:nth-child(3) {
     #description{
         height: 123px;
     }
-    .submit{
+    #submit{
         height: 50px;
     }
 }
