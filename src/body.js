@@ -5,17 +5,24 @@ export function generateBody(current_project) {
     let body = document.createElement('div')
     body.id = 'todo-list'
     for (const todo in current_project.getTodoItems()) {
-        let todoItem = generateTaskTemplate(current_project.getTodoItems()[todo])
-
-        body.appendChild(todoItem)
+        let todoDiv = generateFullTaskTemplate(current_project.getTodoItems()[todo], generateTaskTemplate(current_project.getTodoItems()[todo]))
+        body.appendChild(todoDiv)
     }
     return body
 }
 
+export function generateFullTaskTemplate(todo, taskInner) {
+    let todoDiv = document.createElement('div')
+    todo.completed ? todoDiv.className = 'completed todo-item collapsed' : todoDiv.className = 'todo-item collapsed';
+    todoDiv.id = todo.id
+    console.log(taskInner)
+    todoDiv.appendChild(taskInner[0])
+    todoDiv.appendChild(taskInner[1])
+    return todoDiv
+}
+
 export function generateTaskTemplate(todo) {
-    let todoItem = document.createElement('div')
-    todo.completed ? todoItem.className = 'completed todo-item collapsed' : todoItem.className = 'todo-item collapsed';
-    todoItem.id = todo.id
+
     let todoMainInfo = document.createElement('div');
     todoMainInfo.className = 'todo-main';
 
@@ -47,7 +54,7 @@ export function generateTaskTemplate(todo) {
     customCheckbox.className = 'checkbox-custom'
 
     let checkLabel = document.createElement('label')
-    checkLabel.className='checkbox-label'
+    checkLabel.className = 'checkbox-label'
 
     checkLabel.appendChild(todoCompleted)
     checkLabel.appendChild(customCheckbox)
@@ -69,17 +76,17 @@ export function generateTaskTemplate(todo) {
     editButton.className = 'kebab'
     let editButtonDropdown = document.createElement('ul')
     editButtonDropdown.className = 'kebab-dropdown hidden'
-    for(const btn of ['EDIT', 'DELETE']){
+    for (const btn of ['EDIT', 'DELETE']) {
         let li = `<li><button class='${btn.toLowerCase()}-button ${todo.id}'>${btn}</button></li>`
         editButtonDropdown.innerHTML += li
     }
     editButton.appendChild(editButtonDropdown)
 
-    document.addEventListener('click', (e)=>{
-        if(editButton.contains(e.target)){
+    document.addEventListener('click', (e) => {
+        if (editButton.contains(e.target)) {
             editButtonDropdown.classList.toggle('hidden')
-        }else{
-            if(!editButtonDropdown.classList.contains('hidden')){
+        } else {
+            if (!editButtonDropdown.classList.contains('hidden')) {
                 editButtonDropdown.classList.toggle('hidden')
             }
         }
@@ -88,11 +95,10 @@ export function generateTaskTemplate(todo) {
     let secondaryInfo = document.createElement('div')
     secondaryInfo.className = 'todo-secondary'
 
-    todoItem.appendChild(todoMainInfo)
     secondaryInfo.appendChild(fullTitle)
     secondaryInfo.appendChild(editButton)
     secondaryInfo.appendChild(todoDesc)
-    todoItem.appendChild(secondaryInfo)
 
-    return todoItem
+
+    return [todoMainInfo, secondaryInfo]
 }

@@ -7,7 +7,7 @@ let contentContainer = document.getElementById('content');
 import TodoItem from './todoItem'
 import TodoProject from './todoProject'
 
-import { generateBody, generateTaskTemplate } from './body'
+import { generateBody, generateTaskTemplate, generateFullTaskTemplate } from './body'
 import { generateHeader } from './header'
 import { generateSidebar } from './sidebar'
 import { generateModal } from './newItemModal'
@@ -125,6 +125,12 @@ document.body.addEventListener('click', (e) => {
             task_to_edit.due_date = date
             task_to_edit.priority = Number(modalform.querySelector('.hidden-priority').value)
             console.log(task_to_edit)
+            let updatedTask = generateTaskTemplate(task_to_edit)
+            let todoItem = document.getElementById(task_to_edit.id)
+            todoItem.textContent = ''
+            todoItem.appendChild(updatedTask[0])
+            todoItem.appendChild(updatedTask[1])
+
             plusClick()
         };
         
@@ -175,7 +181,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     item.innerHTML = truncate(newItem.title, 20, 17)
     document.getElementById(`project-${projects.indexOf(current_project)}`).appendChild(item)
 
-    document.getElementById('todo-list').appendChild(generateTaskTemplate(newItem))
+    document.getElementById('todo-list').appendChild(generateFullTaskTemplate(newItem, generateTaskTemplate(newItem)))
     e.target.reset()
 
     //reset priority buttons default selection
