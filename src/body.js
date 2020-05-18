@@ -21,7 +21,7 @@ export function generateFullTaskTemplate(todo, taskInner) {
     return todoDiv
 }
 
-export function generateTaskTemplate(todo) {
+export function generateTaskTemplate(todo, completed) {
 
     let todoMainInfo = document.createElement('div');
     todoMainInfo.className = 'todo-main';
@@ -40,7 +40,7 @@ export function generateTaskTemplate(todo) {
 
     let todoTitle = document.createElement('span')
     todoTitle.className = 'todo-title'
-    todoTitle.innerText = truncate(todo.title, 13, 10).toUpperCase()
+    todoTitle.innerText = truncate(todo.title, 12, 9).toUpperCase()
 
     let todoDate = document.createElement('span')
     todoDate.className = 'todo-date'
@@ -49,6 +49,8 @@ export function generateTaskTemplate(todo) {
     let todoCompleted = document.createElement('input')
     todoCompleted.type = 'checkbox'
     todoCompleted.className = 'todo-completed'
+    console.log(completed)
+    todoCompleted.checked = completed
 
     let customCheckbox = document.createElement('span')
     customCheckbox.className = 'checkbox-custom'

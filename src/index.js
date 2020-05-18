@@ -9,30 +9,39 @@ import TodoProject from './todoProject'
 
 import { generateBody, generateTaskTemplate, generateFullTaskTemplate } from './body'
 import { generateHeader } from './header'
-import { generateSidebar } from './sidebar'
+import { generateSidebar, generateSidebarProject } from './sidebar'
 import { generateModal } from './newItemModal'
+import { generateProjectModal } from './newProjectModal'
 import { truncate } from './truncate'
 
 let dropdown_arrows = document.getElementsByClassName('expand-dropdown');
 
 let angle = 0;
-let projects = [TodoProject('Default Project')];
-for(let i=0; i<25; i++){
-    projects.push(TodoProject('Default Project'))
-}
+let projectCounter = 0
+let projects = [TodoProject(projectCounter++, 'Default Project')];
+
+//testing scrollbar with lots of projects
+// for (let i = 0; i < 25; i++) {
+//     projects.push(TodoProject('Default Project'))
+// }
 let current_project = projects[0]
 current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 2))
 let header = generateHeader(current_project);
 let sidenav = generateSidebar(projects);
 
 contentContainer.appendChild(generateModal())
+contentContainer.appendChild(generateProjectModal())
 contentContainer.appendChild(header);
 contentContainer.appendChild(sidenav);
 contentContainer.appendChild(generateBody(projects[0]))
 
+document.getElementById('new-project').addEventListener('click', () => {
+    document.getElementById('project-modal').classList.remove('hidden')
+})
 
-function plusClick(){
-    if(angle % 45 == 0){
+
+function plusClick() {
+    if (angle % 45 == 0) {
         document.getElementById('modal-form').reset()
         document.querySelector('.priority-option#priority-1').classList.remove('darken')
         document.querySelector('.priority-option#priority-2').classList.add('darken')
@@ -52,19 +61,17 @@ document.getElementById('plus-div').addEventListener('click', () => {
     plusClick()
 })
 
-for (const arrow of dropdown_arrows) {
-    arrow.addEventListener('click', () => {
-        arrow.parentNode.classList.toggle('not-expanded')
-        arrow.style.cssText == 'transform: rotate(90deg);' ? arrow.style.transform = 'rotate(0deg)' : arrow.style.transform = 'rotate(90deg)'
-    })
-}
 
-document.getElementById('description').addEventListener('focus', ()=>{
+document.getElementById('description').addEventListener('focus', () => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
 })
 
 document.body.addEventListener('click', (e) => {
+    if(e.target.id != 'project-modal' && e.target.id != 'new-project' && e.target.id != 'project-input' && e.target.id != 'project-submit'){
+        document.getElementById('project-modal').classList.add('hidden')
+    }
+
     //expanded/close sidebar, toggle hamburger animation
     if (e.target.id == 'hamburger-icon' || e.target.classList.contains('bar')) {
         document.getElementById('sidenav').classList.toggle('hidden')
@@ -78,7 +85,7 @@ document.body.addEventListener('click', (e) => {
             for (const project of document.getElementsByClassName('sidenav-project')) {
                 if (!project.classList.contains('not-expanded')) {
                     project.classList.add('not-expanded')
-                    project.childNodes[1].style.transform = 'rotate(0deg)'
+                    project.childNodes[2].style.transform = 'rotate(0deg)'
                 }
             }
         }
@@ -92,14 +99,16 @@ document.body.addEventListener('click', (e) => {
     }
 
     //mark task as completed
-    if(e.target.classList.contains('todo-completed')){
+    if (e.target.classList.contains('todo-completed')) {
         e.target.parentNode.parentNode.parentNode.classList.toggle('completed')
         current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed = !current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed
+        document.getElementById(`${current_project.getId()}${e.target.parentNode.parentNode.parentNode.id}`).classList.toggle('completed-item')
     }
 
     //edit task functionality
-    if(e.target.classList.contains('edit-button')){
+    if (e.target.classList.contains('edit-button')) {
         let task_to_edit = current_project.getTodoItems()[e.target.classList[1]]
+        console.log(task_to_edit)
         angle += 45
         document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
 
@@ -114,35 +123,42 @@ document.body.addEventListener('click', (e) => {
         modalform.querySelector(`#priority-${task_to_edit.priority}`).click()
         document.getElementById('modal').classList.toggle('hidden')
 
-        document.getElementById('edit').onclick = function(){
+        document.getElementById('edit').onclick = function () {
             task_to_edit.title = modalform.querySelector('.title').value
             task_to_edit.description = modalform.querySelector('#description').value
             let splittedDate = modalform.querySelector('.duedate').value.split('-')
             let date = new Date()
             date.setFullYear(splittedDate[0])
-            date.setMonth(splittedDate[1]-1)
+            date.setMonth(splittedDate[1] - 1)
             date.setDate(splittedDate[2])
             task_to_edit.due_date = date
             task_to_edit.priority = Number(modalform.querySelector('.hidden-priority').value)
-            console.log(task_to_edit)
-            let updatedTask = generateTaskTemplate(task_to_edit)
+            console.log(task_to_edit.completed)
+            let updatedTask = generateTaskTemplate(task_to_edit, task_to_edit.completed)
             let todoItem = document.getElementById(task_to_edit.id)
             todoItem.textContent = ''
             todoItem.appendChild(updatedTask[0])
             todoItem.appendChild(updatedTask[1])
-            document.getElementById(`${projects.indexOf(current_project)}${e.target.classList[1]}`).innerText = truncate(task_to_edit.title, 20, 17)
+            document.getElementById(`${current_project.getId()}${e.target.classList[1]}`).innerText = truncate(task_to_edit.title, 20, 17)
 
             plusClick()
         };
     }
 
-    if(e.target.classList.contains('delete-button')){
+    if (e.target.classList.contains('delete-button')) {
         delete current_project.getTodoItems()[e.target.classList[1]]
         document.getElementById(e.target.classList[1]).remove()
-        document.getElementById(`${projects.indexOf(current_project)}${e.target.classList[1]}`).remove(0)
-        
+        document.getElementById(`${current_project.getId()}${e.target.classList[1]}`).remove(0)
+
     }
-    
+
+    if(e.target.classList.contains('glyphicon-trash')){
+        if(e.target.parentNode.id[e.target.parentNode.id.length-1] == current_project.getId()){
+            document.getElementById('todo-list').textContent = ''
+            document.getElementById('project-name').innerText = ''
+        }
+    }
+
 });
 
 //Modal priority buttons functionality
@@ -175,7 +191,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     let splittedDate = e.target[2].value.split('-')
     let date = new Date()
     date.setFullYear(splittedDate[0])
-    date.setMonth(splittedDate[1]-1)
+    date.setMonth(splittedDate[1] - 1)
     date.setDate(splittedDate[2])
     let newItem = TodoItem(current_project.getCounter(), e.target[0].value, date, e.target[1].value, e.target[3].value)
     current_project.addTodoItem(newItem)
@@ -183,9 +199,9 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     //update sidebar with new item
     let item = document.createElement('li')
     item.className = 'sidenav-todo';
-    item.id = `${projects.indexOf(current_project)}${newItem.id}`
+    item.id = `${current_project.getId()}${newItem.id}`
     item.innerHTML = truncate(newItem.title, 20, 17)
-    document.getElementById(`project-${projects.indexOf(current_project)}`).appendChild(item)
+    document.getElementById(`project-${current_project.getId()}`).appendChild(item)
 
     document.getElementById('todo-list').appendChild(generateFullTaskTemplate(newItem, generateTaskTemplate(newItem)))
     e.target.reset()
@@ -199,4 +215,25 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     angle += 45
     document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
     document.getElementById('modal').classList.toggle('hidden')
+});
+
+document.getElementById('new-project-form').addEventListener('submit', (e) => {
+    document.getElementById('plus-div').style.visibility = 'visible'
+    document.getElementById('plus-div').style.transitionDuration = '0.2s';
+    e.preventDefault();
+    let new_project = TodoProject(projectCounter++, e.target[0].value);
+    console.log(new_project)
+    console.log(new_project.getId())
+    projects.push(new_project);
+    current_project = new_project;
+    document.getElementById('project-name').innerText = new_project.getName();
+    sidenav.appendChild(generateSidebarProject(projects, new_project));
+
+    document.getElementById('todo-list').textContent = '';
+
+    document.getElementById('project-modal').classList.toggle('hidden');
+    setTimeout(function(){
+        e.target.reset();
+    }, 400);
+
 });

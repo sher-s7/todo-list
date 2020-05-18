@@ -1,4 +1,4 @@
-const generateProject = (name, todoItems = {}) => {
+const generateProject = (id, name, todoItems = {}) => {
     var counter = 0
     const addTodoItem = (item) => {
         todoItems[counter] = item
@@ -22,7 +22,11 @@ const generateProject = (name, todoItems = {}) => {
         return counter
     }
 
-    return {addTodoItem, getName, getTodoItems, setName, getCounter}
+    const getId = () =>{
+        return id
+    }
+
+    return {addTodoItem, getName, getTodoItems, setName, getCounter, getId}
 
 };
 
