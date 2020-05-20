@@ -81,6 +81,7 @@ export function generateSidebarProject(projects, project) {
             document.getElementById('plus-div').style.transitionDuration = '0s';
             document.getElementById('plus-div').style.visibility = 'hidden'
             document.getElementById('project-name').innerText = ''
+            document.getElementById('todo-list').innerText = ''
         }
     })
 

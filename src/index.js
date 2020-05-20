@@ -168,6 +168,21 @@ document.body.addEventListener('click', (e) => {
         }
     }
 
+    //change current project
+    if (e.target.classList.contains('sidenav-project-name')){
+        current_project = projects.find(project => project.getId() == e.target.dataset.project)
+        document.getElementById('project-name').innerText = current_project.getName()
+        let todolist = document.getElementById('todo-list')
+        todolist.textContent = ''
+        console.log(current_project.getTodoItems())
+        for(const todo in current_project.getTodoItems()){
+            let current_todo = current_project.getTodoItems()[todo]
+            todolist.appendChild(generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed)))
+        }
+        document.getElementById('plus-div').style.visibility = 'visible'
+        document.getElementById('plus-div').style.transitionDuration = '0.2s';
+    }
+
 });
 
 //Modal priority buttons functionality
@@ -212,7 +227,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     item.innerHTML = truncate(newItem.title, 20, 17)
     document.getElementById(`project-${current_project.getId()}`).appendChild(item)
 
-    document.getElementById('todo-list').appendChild(generateFullTaskTemplate(newItem, generateTaskTemplate(newItem)))
+    document.getElementById('todo-list').appendChild(generateFullTaskTemplate(newItem, generateTaskTemplate(newItem, newItem.completed)))
     e.target.reset()
 
     //reset priority buttons default selection

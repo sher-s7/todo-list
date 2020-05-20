@@ -536,7 +536,23 @@ td:nth-child(3) {
     padding: 0;
     cursor: pointer;
 }
-.kebab::after {
+.sidenav-kebab{
+    float: left;
+    position: relative;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 0;
+    cursor: pointer;
+    top: 1.5px;
+    left: -5px;
+}
+.sidenav-kebab .kebab-dropdown{
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+.kebab::after, .sidenav-kebab::after {
     content: "\2807";
     font-size: 20px;
     font-weight: 900;
