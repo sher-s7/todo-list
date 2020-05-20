@@ -27,16 +27,17 @@ let projects = [TodoProject(projectCounter++, 'Default Project')];
 let current_project = projects[0]
 current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 2))
 let header = generateHeader(current_project);
-let sidenav = generateSidebar(projects);
 
 contentContainer.appendChild(generateModal())
 contentContainer.appendChild(generateProjectModal())
 contentContainer.appendChild(header);
+let sidenav = generateSidebar(projects);
 contentContainer.appendChild(sidenav);
 contentContainer.appendChild(generateBody(projects[0]))
 
 document.getElementById('new-project').addEventListener('click', () => {
     document.getElementById('project-modal').classList.remove('hidden')
+    document.getElementById('new-project-form').querySelector('input[type=submit]').id = 'project-submit'
 })
 
 
@@ -68,8 +69,16 @@ document.getElementById('description').addEventListener('focus', () => {
 })
 
 document.body.addEventListener('click', (e) => {
-    if(e.target.id != 'project-modal' && e.target.id != 'new-project' && e.target.id != 'project-input' && e.target.id != 'project-submit'){
+    if (e.target.id != 'project-modal' && e.target.id != 'new-project' && !e.target.classList.contains('edit-project-button') && e.target.id != 'project-input' && e.target.id != 'project-submit' && e.target.id != 'project-edit-submit') {
         document.getElementById('project-modal').classList.add('hidden')
+        setTimeout(function () {
+            document.getElementById('new-project-form').reset();
+        }, 400);
+        document.getElementById('project-modal').querySelectorAll('input')[1].id = 'project-submit'
+    }
+
+    if(e.target.classList.contains('edit-project-button')){
+        document.getElementById('project-modal').classList.remove('hidden')
     }
 
     //expanded/close sidebar, toggle hamburger animation
@@ -152,8 +161,8 @@ document.body.addEventListener('click', (e) => {
 
     }
 
-    if(e.target.classList.contains('glyphicon-trash')){
-        if(e.target.parentNode.id[e.target.parentNode.id.length-1] == current_project.getId()){
+    if (e.target.classList.contains('glyphicon-trash')) {
+        if (e.target.parentNode.id[e.target.parentNode.id.length - 1] == current_project.getId()) {
             document.getElementById('todo-list').textContent = ''
             document.getElementById('project-name').innerText = ''
         }
@@ -218,22 +227,34 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
 });
 
 document.getElementById('new-project-form').addEventListener('submit', (e) => {
-    document.getElementById('plus-div').style.visibility = 'visible'
-    document.getElementById('plus-div').style.transitionDuration = '0.2s';
     e.preventDefault();
-    let new_project = TodoProject(projectCounter++, e.target[0].value);
-    console.log(new_project)
-    console.log(new_project.getId())
-    projects.push(new_project);
-    current_project = new_project;
-    document.getElementById('project-name').innerText = new_project.getName();
-    sidenav.appendChild(generateSidebarProject(projects, new_project));
+    if (e.target.querySelectorAll('input')[1].id == 'project-submit') {
+        document.getElementById('plus-div').style.visibility = 'visible'
+        document.getElementById('plus-div').style.transitionDuration = '0.2s';
+        let new_project = TodoProject(projectCounter++, e.target[0].value);
+        console.log(new_project)
+        console.log(new_project.getId())
+        projects.push(new_project);
+        current_project = new_project;
+        
+        document.getElementById('project-name').innerText = new_project.getName();
+        document.getElementById('project-name').dataset.project = current_project.getId();
+        sidenav.appendChild(generateSidebarProject(projects, new_project, current_project));
 
-    document.getElementById('todo-list').textContent = '';
+        document.getElementById('todo-list').textContent = '';
 
+        
+    }else if(e.target.querySelectorAll('input')[1].id == 'project-edit-submit'){
+        let project = projects.find(project => project.getId() == document.getElementById('project-input').dataset.project);
+        console.log(project)
+        project.setName(document.getElementById('project-input').value);
+        document.getElementById(`project-${project.getId()}`).querySelectorAll('span')[0].innerText = project.getName().toUpperCase();
+        if(project == current_project){
+            document.getElementById('project-name').innerText = project.getName();
+        }
+    }
     document.getElementById('project-modal').classList.toggle('hidden');
-    setTimeout(function(){
-        e.target.reset();
-    }, 400);
-
+        setTimeout(function () {
+            e.target.reset();
+        }, 400);
 });

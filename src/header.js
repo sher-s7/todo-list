@@ -39,6 +39,7 @@ export function generateHeader(current_project){
     const projectName = document.createElement('h2');
     projectName.innerHTML = current_project.getName();
     projectName.id = 'project-name'
+    projectName.dataset.project = current_project.getId();
 
     for(const item of [hamburger, todoH1, projectName, plusDiv, plusText]){
         let li = document.createElement('li')
