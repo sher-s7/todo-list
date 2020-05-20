@@ -16,7 +16,6 @@ export function generateFullTaskTemplate(todo, taskInner) {
     let todoDiv = document.createElement('div')
     todo.completed ? todoDiv.className = 'completed todo-item collapsed' : todoDiv.className = 'todo-item collapsed';
     todoDiv.id = todo.id
-    console.log(taskInner)
     todoDiv.appendChild(taskInner[0])
     todoDiv.appendChild(taskInner[1])
     return todoDiv
@@ -50,7 +49,6 @@ export function generateTaskTemplate(todo, completed) {
     let todoCompleted = document.createElement('input')
     todoCompleted.type = 'checkbox'
     todoCompleted.className = 'todo-completed'
-    console.log(completed)
     todoCompleted.checked = completed
 
     let customCheckbox = document.createElement('span')
