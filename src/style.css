@@ -37,6 +37,24 @@ header ul li {
     display: inline;
     line-height: 52px;
 }
+#sort-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 300;
+}
+#sort-options{
+    flex-direction: column;
+    background-color: red;
+    z-index: 1;
+}
+#sort-icon{
+    width: 15px;
+}
+#current-sort{
+    padding: 0 15px;
+}
 #hamburger-icon {
     vertical-align: middle;
 }
@@ -633,6 +651,8 @@ td:nth-child(3) {
     header ul li {
         margin-top: 25px;
     }
+
+  
 
     #hamburger-icon {
         position: relative;

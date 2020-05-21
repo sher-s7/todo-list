@@ -40,10 +40,10 @@ contentContainer.appendChild(sidenav);
 contentContainer.appendChild(generateBody(projects[0]))
 
 const sortFunctions = {
-    idasc(a, b){
+    defaultasc(a, b){
         return a.id>b.id?1:-1
     },
-    iddesc(a, b){
+    defaultdesc(a, b){
         return a.id<b.id?1:-1
     },
     priorityasc(a,b){
