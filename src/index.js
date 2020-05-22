@@ -13,6 +13,7 @@ import { generateSidebar, generateSidebarProject } from './sidebar'
 import { generateModal } from './newItemModal'
 import { generateProjectModal } from './newProjectModal'
 import { truncate } from './truncate'
+import List from 'list.js';
 
 let dropdown_arrows = document.getElementsByClassName('expand-dropdown');
 
@@ -25,7 +26,10 @@ let projects = [TodoProject(projectCounter++, 'Default Project')];
 //     projects.push(TodoProject('Default Project'))
 // }
 let current_project = projects[0]
-current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 2))
+current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 1))
+current_project.addTodoItem(TodoItem(1, 'second', new Date('1999', '09', '10'), 'asap', 2))
+current_project.addTodoItem(TodoItem(2, 'third', new Date('2020', '09', '11'), 'asap', 3))
+current_project.addTodoItem(TodoItem(3, 'fourth', new Date('2011', '05', '05'), 'asap', 3))
 let header = generateHeader(current_project);
 
 contentContainer.appendChild(generateModal())
@@ -34,6 +38,34 @@ contentContainer.appendChild(header);
 let sidenav = generateSidebar(projects);
 contentContainer.appendChild(sidenav);
 contentContainer.appendChild(generateBody(projects[0]))
+
+const sortFunctions = {
+    defaultasc(a, b){
+        return a.id>b.id?1:-1
+    },
+    defaultdesc(a, b){
+        return a.id<b.id?1:-1
+    },
+    priorityasc(a,b){
+        return a.querySelector('.priority').classList[1].slice(-1)>b.querySelector('.priority').classList[1].slice(-1)?1:-1
+    },
+    prioritydesc(a,b){
+        return a.querySelector('.priority').classList[1].slice(-1)<b.querySelector('.priority').classList[1].slice(-1)?1:-1
+    },
+    dateasc(a,b){
+        return Date.parse(current_project.getTodoItems()[a.id].due_date)>Date.parse(current_project.getTodoItems()[b.id].due_date)?1:-1
+    },
+    datedesc(a,b){
+        return Date.parse(current_project.getTodoItems()[a.id].due_date)<Date.parse(current_project.getTodoItems()[b.id].due_date)?1:-1
+    }
+}
+
+function sortOptions(options){
+    var list = document.querySelector('#todo-list');
+    let func = sortFunctions[`${options[0]}${options[1]}`];
+    [...list.children].sort((a,b)=>func(a,b)).map(node=>list.appendChild(node));
+}
+
 
 document.getElementById('new-project').addEventListener('click', () => {
     document.getElementById('project-modal').classList.remove('hidden')
@@ -62,6 +94,33 @@ document.getElementById('plus-div').addEventListener('click', () => {
     plusClick()
 })
 
+document.getElementById('current-sort').addEventListener('click', ()=>{
+    document.getElementById('sort-options').classList.toggle('collapse')
+})
+
+let sortingOptions = document.querySelectorAll('#sort-options li')
+console.log(sortingOptions)
+
+for(const option of sortingOptions){
+    console.log(option)
+    option.addEventListener('click', (e)=>{
+        let sort_direction = document.getElementById('sort-direction').dataset.direction
+        sortOptions([e.target.id, sort_direction])
+        document.getElementById('current-sort').dataset.sort = e.target.id
+        document.getElementById('current-sort').innerText = option.innerText
+        document.getElementById('sort-options').classList.add('collapse')
+    })
+}
+let sort_direction_element = document.getElementById('sort-direction')
+sort_direction_element.addEventListener('click', ()=>{
+    if(sort_direction_element.dataset.direction == 'asc'){
+        sortOptions([document.getElementById('current-sort').dataset.sort, 'desc'])
+        sort_direction_element.dataset.direction = 'desc'
+    }else{
+        sortOptions([document.getElementById('current-sort').dataset.sort, 'asc'])
+        sort_direction_element.dataset.direction = 'asc'
+    }
+})
 
 document.getElementById('description').addEventListener('focus', () => {
     window.scrollTo(0, 0);
@@ -152,6 +211,7 @@ document.body.addEventListener('click', (e) => {
 
             plusClick()
         };
+        sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
     }
 
     if (e.target.classList.contains('delete-button')) {
@@ -179,6 +239,7 @@ document.body.addEventListener('click', (e) => {
             let current_todo = current_project.getTodoItems()[todo]
             todolist.appendChild(generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed)))
         }
+        sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
         document.getElementById('plus-div').style.visibility = 'visible'
         document.getElementById('plus-div').style.transitionDuration = '0.2s';
     }
@@ -228,6 +289,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     document.getElementById(`project-${current_project.getId()}`).appendChild(item)
 
     document.getElementById('todo-list').appendChild(generateFullTaskTemplate(newItem, generateTaskTemplate(newItem, newItem.completed)))
+    sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
     e.target.reset()
 
     //reset priority buttons default selection
