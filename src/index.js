@@ -169,6 +169,14 @@ document.body.addEventListener('click', (e) => {
     //mark task as completed
     if (e.target.classList.contains('todo-completed')) {
         e.target.parentNode.parentNode.parentNode.classList.toggle('completed')
+        let cloned_item = e.target.parentNode.parentNode.parentNode
+        e.target.parentNode.parentNode.parentNode.remove()
+        if(!current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed){
+            document.getElementById('completed-todo-list').appendChild(cloned_item)
+        }else{
+            document.getElementById('todo-list').appendChild(cloned_item)
+            sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
+        }
         current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed = !current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed
         document.getElementById(`${current_project.getId()}${e.target.parentNode.parentNode.parentNode.id}`).classList.toggle('completed-item')
     }
@@ -234,10 +242,15 @@ document.body.addEventListener('click', (e) => {
         document.getElementById('project-name').innerText = current_project.getName()
         let todolist = document.getElementById('todo-list')
         todolist.textContent = ''
-        console.log(current_project.getTodoItems())
+        let completedlist = document.getElementById('completed-todo-list')
+        completedlist.textContent = ''
         for(const todo in current_project.getTodoItems()){
             let current_todo = current_project.getTodoItems()[todo]
-            todolist.appendChild(generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed)))
+            if(current_todo.completed){
+                completedlist.appendChild(generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed)))
+            }else{
+                todolist.appendChild(generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed)))
+            }
         }
         sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
         document.getElementById('plus-div').style.visibility = 'visible'
@@ -319,6 +332,7 @@ document.getElementById('new-project-form').addEventListener('submit', (e) => {
         sidenav.appendChild(generateSidebarProject(projects, new_project, current_project));
 
         document.getElementById('todo-list').textContent = '';
+        document.getElementById('completed-todo-list').textContent = '';
 
         
     }else if(e.target.querySelectorAll('input')[1].id == 'project-edit-submit'){

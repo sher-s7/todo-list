@@ -3,13 +3,18 @@ import { format } from 'date-fns'
 
 export function generateBody(current_project) {
     let body = document.createElement('div')
-    body.id = 'todo-list'
+    let todo_list = document.createElement('div')
+    todo_list.id = 'todo-list'
     for (const todo in current_project.getTodoItems()) {
         let current_todo = current_project.getTodoItems()[todo]
         let todoDiv = generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed))
-        body.appendChild(todoDiv)
+        todo_list.appendChild(todoDiv)
     }
+    let completed_list = document.createElement('div')
+    completed_list.id = 'completed-todo-list'
 
+    body.appendChild(todo_list)
+    body.appendChild(completed_list)
     return body
 }
 

@@ -525,7 +525,7 @@ td:nth-child(3) {
     left: -14px;
 }
 
-#todo-list {
+#todo-list, #completed-todo-list {
     width: 97vw;
     margin: 0 auto;
     margin-top: 40px;
