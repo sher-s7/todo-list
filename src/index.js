@@ -67,8 +67,6 @@ function sortOptions(options){
 }
 
 
-sortOptions(['date', 'asc'])
-
 document.getElementById('new-project').addEventListener('click', () => {
     document.getElementById('project-modal').classList.remove('hidden')
     document.getElementById('new-project-form').querySelector('input[type=submit]').id = 'project-submit'
@@ -96,6 +94,33 @@ document.getElementById('plus-div').addEventListener('click', () => {
     plusClick()
 })
 
+document.getElementById('current-sort').addEventListener('click', ()=>{
+    document.getElementById('sort-options').classList.toggle('collapse')
+})
+
+let sortingOptions = document.querySelectorAll('#sort-options li')
+console.log(sortingOptions)
+
+for(const option of sortingOptions){
+    console.log(option)
+    option.addEventListener('click', (e)=>{
+        let sort_direction = document.getElementById('sort-direction').dataset.direction
+        sortOptions([e.target.id, sort_direction])
+        document.getElementById('current-sort').dataset.sort = e.target.id
+        document.getElementById('current-sort').innerText = option.innerText
+        document.getElementById('sort-options').classList.add('collapse')
+    })
+}
+let sort_direction_element = document.getElementById('sort-direction')
+sort_direction_element.addEventListener('click', ()=>{
+    if(sort_direction_element.dataset.direction == 'asc'){
+        sortOptions([document.getElementById('current-sort').dataset.sort, 'desc'])
+        sort_direction_element.dataset.direction = 'desc'
+    }else{
+        sortOptions([document.getElementById('current-sort').dataset.sort, 'asc'])
+        sort_direction_element.dataset.direction = 'asc'
+    }
+})
 
 document.getElementById('description').addEventListener('focus', () => {
     window.scrollTo(0, 0);
@@ -186,6 +211,7 @@ document.body.addEventListener('click', (e) => {
 
             plusClick()
         };
+        sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
     }
 
     if (e.target.classList.contains('delete-button')) {
@@ -213,6 +239,7 @@ document.body.addEventListener('click', (e) => {
             let current_todo = current_project.getTodoItems()[todo]
             todolist.appendChild(generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed)))
         }
+        sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
         document.getElementById('plus-div').style.visibility = 'visible'
         document.getElementById('plus-div').style.transitionDuration = '0.2s';
     }
@@ -262,6 +289,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
     document.getElementById(`project-${current_project.getId()}`).appendChild(item)
 
     document.getElementById('todo-list').appendChild(generateFullTaskTemplate(newItem, generateTaskTemplate(newItem, newItem.completed)))
+    sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
     e.target.reset()
 
     //reset priority buttons default selection

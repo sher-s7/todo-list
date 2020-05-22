@@ -55,11 +55,12 @@ export function generateHeader(current_project){
     let sort_icon = new Image()
     sort_icon.src = sortIcon
     sort_icon.id = 'sort-icon'
-    sort.innerHTML = `<div>Sort by: <span id="current-sort">Date created</span> <span id="sort-direction" data-direction="asc"></span></div>`
+    sort.innerHTML = `<div><span>Sort by:</span> <span data-sort='default' id="current-sort">Date created</span> <span id="sort-direction" data-direction="asc"></span></div>`
     sort.querySelector('#sort-direction').appendChild(sort_icon)
     let options = ['Date created', 'Priority', 'Due date'];
     let sort_options = document.createElement('ul');
     sort_options.id = 'sort-options'
+    sort_options.className = 'collapse'
     for(let i = 0; i<options.length; i++){
         let option_li = document.createElement('li')
         option_li.id = i == 0 ? 'default' : i == 1 ? 'priority' : 'date';

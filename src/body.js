@@ -9,6 +9,7 @@ export function generateBody(current_project) {
         let todoDiv = generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed))
         body.appendChild(todoDiv)
     }
+
     return body
 }
 

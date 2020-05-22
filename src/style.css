@@ -41,13 +41,50 @@ header ul li {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 300;
 }
+#sort-bar div{
+    width: 100%;
+    text-align: center;
+    background-color: var(--bg);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+}
 #sort-options{
-    flex-direction: column;
-    background-color: red;
+    background-color: var(--bg);
     z-index: 1;
+    display: block;
+    position: fixed;
+    width: 50vw;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 0;
+    top: 83px;
+    transform: scaleY(1);
+    transition: 0.2s ease;
+    opacity: 1;
+    transform-origin: top;
+    visibility: visible;
+    border: 1px solid var(--border);
+    border-top: none;
+}
+#sort-options.collapse{
+    transform: scaleY(0) !important;
+    visibility: hidden;
+    opacity: 0;
+}
+#sort-options li{
+    display: block;
+    height: 31px;
+    line-height: 31px;
+    border: #171e25;
+    padding-left: 5px;
+    margin: 5px;
+}
+
+#sort-direction{
+    vertical-align: middle;
 }
 #sort-icon{
     width: 15px;
@@ -491,7 +528,7 @@ td:nth-child(3) {
 #todo-list {
     width: 97vw;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .priority {
     width: 68px;
@@ -562,7 +599,7 @@ td:nth-child(3) {
     color: white;
     padding: 0;
     cursor: pointer;
-    top: 1.5px;
+    top: 0;
     left: -5px;
 }
 .sidenav-kebab .kebab-dropdown{
