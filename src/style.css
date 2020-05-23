@@ -10,11 +10,13 @@ html {
 
     --bg: #2e2e2e;
     --border: #eec9a4;
+    height: 100%;
 }
 body {
     background-color: var(--dark);
     color: var(--secondary);
     margin: 0;
+    height: 100%;
 }
 header {
     background-color: var(--primary);
@@ -154,8 +156,7 @@ header ul li {
     transform: rotate(45deg) translate(-7.5px, -7px);
 }
 
-.header-list li:nth-child(2),
-.header-list li:last-child {
+.header-list li:nth-child(2){
     display: none;
 }
 .header-list li:nth-child(4) {
@@ -369,7 +370,7 @@ h3 {
     width: 70vw;
     height: 120px;
     background-color: var(--dark);
-    box-shadow: 0 0 30px 5px black;
+    box-shadow: 0 0 10px black;
     opacity: 1;
     transition-duration: 0.4s;
 }
@@ -739,12 +740,43 @@ td:nth-child(3) {
         /* margin-left: 1vw; */
     }
 
+    #plusbar1, #plusbar2{
+        width: 25px;
+    }
+
     #plus-text {
         display: initial;
         font-size: 20px;
         margin-right: 10px;
         color: var(--secondary);
-        font-weight: 800;
+        font-weight: 400;
+        vertical-align: middle;
+        margin-left: 7px;
+        
+    }
+    #plus-li{
+        border: 1px solid transparent;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 8px;
+        border-radius: 25px;
+        padding-bottom: 2px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    #plus-li:hover{
+        border: 1px solid var(--border);
+    }
+    #plus-li:hover #plus-text{
+        color: var(--border);
+        transition-duration: 0.3s;
+    }
+    #project-modal{
+        width: 250px;
+        height: 140px;
+    }
+    #project-modal.hidden{
+        width: 240px;
     }
     #plus-div:hover {
         background-color: var(--dark);
@@ -761,10 +793,24 @@ td:nth-child(3) {
         display: initial;
     }
 
+    #sort-bar{
+        cursor: default;
+    }
+
+    #sort-options{
+        width: 145px;
+        top: 121px;
+    }
+    #sort-options li:hover{
+        background-color: #181a1f;
+    }
+
     .todo-main,
     .todo-item {
         cursor: pointer;
     }
+
+
 
     #modal {
         width: 582px;

@@ -29,7 +29,7 @@ export function generateSidebarProject(projects, project) {
     sidebarItem.id = `project-${project.getId()}`
     let arrow = document.createElement('span')
     arrow.className = 'expand-dropdown'
-    arrow.innerHTML = '▶' 
+    arrow.innerHTML = '▶&#xFE0E;' 
 
     let projectname = document.createElement('span')
     projectname.innerHTML = `${truncate(project.getName().toUpperCase(), 16, 13)}`
@@ -68,18 +68,18 @@ export function generateSidebarProject(projects, project) {
         arrow.parentNode.classList.toggle('not-expanded')
         arrow.style.cssText == 'transform: rotate(90deg);' ? arrow.style.transform = 'rotate(0deg)' : arrow.style.transform = 'rotate(90deg)'
     })
-    console.log()
+    
 
     editButton.querySelector('.delete-project-button').addEventListener('click', () =>{
         projects.splice(projects.indexOf(project), 1)
         sidebarItem.remove()
         if(projects.length == 0){
             document.getElementById('plus-div').style.transitionDuration = '0s';
-            document.getElementById('plus-div').style.visibility = 'hidden'
+            document.getElementById('plus-li').style.visibility = 'hidden'
         }
         if(document.getElementById('project-name').dataset.project == project.getId()){
             document.getElementById('plus-div').style.transitionDuration = '0s';
-            document.getElementById('plus-div').style.visibility = 'hidden'
+            document.getElementById('plus-li').style.visibility = 'hidden'
             document.getElementById('project-name').innerText = ''
             document.getElementById('todo-list').innerText = ''
         }

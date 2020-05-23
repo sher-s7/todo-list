@@ -41,11 +41,16 @@ export function generateHeader(current_project){
     projectName.id = 'project-name'
     projectName.dataset.project = current_project.getId();
 
-    for(const item of [hamburger, todoH1, projectName, plusDiv, plusText]){
+    for(const item of [hamburger, todoH1, projectName]){
         let li = document.createElement('li')
         li.appendChild(item)
         ul.appendChild(li)
     }
+    let li = document.createElement('li')
+    li.id = 'plus-li'
+    li.appendChild(plusDiv)
+    li.appendChild(plusText)
+    ul.appendChild(li)
 
 
     header.appendChild(ul);
@@ -69,7 +74,7 @@ export function generateHeader(current_project){
     }
     sort.appendChild(sort_options)
     header.appendChild(sort)
-    console.log(sort)
+
 
     return header;
 

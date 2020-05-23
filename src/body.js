@@ -36,13 +36,11 @@ export function generateBody(current_project) {
                 }, 100)
             })(completed_list.childElementCount - 1);
         }
-        console.log(current_project.getTodoItems())
         for(const task in current_project.getTodoItems()){
             if(current_project.getTodoItems()[task].completed){
                 delete current_project.getTodoItems()[task]
             }
         }
-        console.log(current_project.getTodoItems())
     });
 
     body.appendChild(todo_list)

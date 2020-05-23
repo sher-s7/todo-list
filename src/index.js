@@ -22,13 +22,13 @@ let projectCounter = 0
 let projects = [TodoProject(projectCounter++, 'Default Project')];
 
 //testing scrollbar with lots of projects
-for (let i = 0; i < 25; i++) {
-    if(i==24){
-        projects.push(TodoProject(projectCounter++,'last Project'))
-    }else{
-    projects.push(TodoProject(projectCounter++,'Default Project'))
-    }
-}
+// for (let i = 0; i < 25; i++) {
+//     if(i==24){
+//         projects.push(TodoProject(projectCounter++,'last Project'))
+//     }else{
+//     projects.push(TodoProject(projectCounter++,'Default Project'))
+//     }
+// }
 let current_project = projects[0]
 current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 1))
 current_project.addTodoItem(TodoItem(1, 'second', new Date('1999', '09', '10'), 'asap', 2))
@@ -94,7 +94,7 @@ function plusClick() {
     document.getElementById('modal').classList.toggle('hidden')
 }
 
-document.getElementById('plus-div').addEventListener('click', () => {
+document.getElementById('plus-li').addEventListener('click', () => {
     plusClick()
 })
 
@@ -103,10 +103,9 @@ document.getElementById('current-sort').addEventListener('click', ()=>{
 })
 
 let sortingOptions = document.querySelectorAll('#sort-options li')
-console.log(sortingOptions)
+
 
 for(const option of sortingOptions){
-    console.log(option)
     option.addEventListener('click', (e)=>{
         let sort_direction = document.getElementById('sort-direction').dataset.direction
         sortOptions([e.target.id, sort_direction])
@@ -188,7 +187,6 @@ document.body.addEventListener('click', (e) => {
     //edit task functionality
     if (e.target.classList.contains('edit-button')) {
         let task_to_edit = current_project.getTodoItems()[e.target.classList[1]]
-        console.log(task_to_edit)
         angle += 45
         document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
 
@@ -213,7 +211,6 @@ document.body.addEventListener('click', (e) => {
             date.setDate(splittedDate[2])
             task_to_edit.due_date = date
             task_to_edit.priority = Number(modalform.querySelector('.hidden-priority').value)
-            console.log(task_to_edit.completed)
             let updatedTask = generateTaskTemplate(task_to_edit, task_to_edit.completed)
             let todoItem = document.getElementById(task_to_edit.id)
             todoItem.textContent = ''
@@ -257,8 +254,14 @@ document.body.addEventListener('click', (e) => {
             }
         }
         sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
-        document.getElementById('plus-div').style.visibility = 'visible'
+        document.getElementById('plus-li').style.visibility = 'visible'
         document.getElementById('plus-div').style.transitionDuration = '0.2s';
+    }
+
+    if(e.target.classList.contains('delete-project-button')){
+        console.log(current_project)
+        current_project = undefined
+        console.log(current_project)
     }
 
 });
@@ -323,11 +326,10 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
 document.getElementById('new-project-form').addEventListener('submit', (e) => {
     e.preventDefault();
     if (e.target.querySelectorAll('input')[1].id == 'project-submit') {
-        document.getElementById('plus-div').style.visibility = 'visible'
+        document.getElementById('plus-li').style.visibility = 'visible'
         document.getElementById('plus-div').style.transitionDuration = '0.2s';
         let new_project = TodoProject(projectCounter++, e.target[0].value);
-        console.log(new_project)
-        console.log(new_project.getId())
+
         projects.push(new_project);
         current_project = new_project;
         
@@ -341,7 +343,7 @@ document.getElementById('new-project-form').addEventListener('submit', (e) => {
         
     }else if(e.target.querySelectorAll('input')[1].id == 'project-edit-submit'){
         let project = projects.find(project => project.getId() == document.getElementById('project-input').dataset.project);
-        console.log(project)
+        
         project.setName(document.getElementById('project-input').value);
         document.getElementById(`project-${project.getId()}`).querySelectorAll('span')[0].innerText = project.getName().toUpperCase();
         if(project == current_project){
