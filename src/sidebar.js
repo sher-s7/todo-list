@@ -2,7 +2,7 @@ import { truncate } from './truncate'
 export function generateSidebar(projects) {
     const sidenav = document.createElement('div');
     sidenav.id = 'sidenav'
-    sidenav.className = 'hidden'
+    sidenav.className = 'hide-nav'
 
     let newProject = document.createElement('button')
     newProject.id = 'new-project'

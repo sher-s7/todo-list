@@ -13,7 +13,39 @@ export function generateBody(current_project) {
     let completed_list = document.createElement('div')
     completed_list.id = 'completed-todo-list'
 
+    let clear_button = document.createElement('button')
+    clear_button.id = 'clear-button'
+    clear_button.innerText = 'Clear completed tasks'
+
+    clear_button.addEventListener('click', () => {
+        if (completed_list.childElementCount > 0) {
+            let completedtasks = completed_list.childNodes;
+            (function myLoop(i) {
+                setTimeout(function () {
+                    completedtasks[completed_list.childElementCount - (i + 1)].style.transform = 'translate(50px)'
+                    completedtasks[completed_list.childElementCount - (i + 1)].style.opacity = '0'
+                    --i
+                    if (i > -1) {
+                        myLoop(i);
+                    } else {
+                        setTimeout(function () {
+                            completed_list.textContent = ''
+                        }, 200);
+                    }
+                }, 100)
+            })(completed_list.childElementCount - 1);
+        }
+        console.log(current_project.getTodoItems())
+        for(const task in current_project.getTodoItems()){
+            if(current_project.getTodoItems()[task].completed){
+                delete current_project.getTodoItems()[task]
+            }
+        }
+        console.log(current_project.getTodoItems())
+    });
+
     body.appendChild(todo_list)
+    body.appendChild(clear_button)
     body.appendChild(completed_list)
     return body
 }

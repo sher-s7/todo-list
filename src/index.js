@@ -142,14 +142,14 @@ document.body.addEventListener('click', (e) => {
 
     //expanded/close sidebar, toggle hamburger animation
     if (e.target.id == 'hamburger-icon' || e.target.classList.contains('bar')) {
-        document.getElementById('sidenav').classList.toggle('hidden')
+        document.getElementById('sidenav').classList.toggle('hide-nav')
         let bars = document.getElementsByClassName('bar');
         for (const bar of bars) {
             bar.classList.toggle('change')
         }
 
         // minimize expanded dropdowns once sidebar is closed
-        if (sidenav.classList.contains('hidden')) {
+        if (sidenav.classList.contains('hide-nav')) {
             for (const project of document.getElementsByClassName('sidenav-project')) {
                 if (!project.classList.contains('not-expanded')) {
                     project.classList.add('not-expanded')

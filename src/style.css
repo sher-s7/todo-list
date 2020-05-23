@@ -186,6 +186,17 @@ h3 {
     position: fixed;
     left: 0;
     z-index: 15;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+.hide-nav{
+    -webkit-transform: translateX(-620px) translateZ(0);
+    -moz-transform: translateX(-620px) translateZ(0);
+    -o-transform: translateX(-620px) translateZ(0);
+    transform: translateX(-620px) translateZ(0);
+    will-change: transform;
 }
 
 #sidenav::-webkit-scrollbar {
@@ -525,10 +536,26 @@ td:nth-child(3) {
     left: -14px;
 }
 
+
+
 #todo-list, #completed-todo-list {
     width: 97vw;
     margin: 0 auto;
     margin-top: 40px;
+}
+#completed-todo-list{
+    margin-top: 10px;
+    overflow-x: hidden;
+}
+#clear-button{
+    margin-left: 5px;
+    display: block;
+    margin-top: 20px;
+    background: transparent;
+    border: none;
+    color: #808080;
+    font-size: 16px;
+    text-decoration: underline
 }
 .priority {
     width: 68px;
