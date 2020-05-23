@@ -181,7 +181,7 @@ h3 {
 #sidenav {
     background-color: var(--primary);
     width: 100%;
-    height: calc(100%-52px);
+    height: calc(100% - 52px);
     overflow-y: scroll;
     overflow-x: hidden;
     position: fixed;
@@ -769,11 +769,12 @@ td:nth-child(3) {
     #modal {
         width: 582px;
         height: 400px;
-        top: 50%;
+        top: 330px;
         left: 50%;
         transform: translate(-50%, -50%);
         border: 2px solid var(--border);
         overflow-y: auto;
+        box-shadow: 0 0 10px black;
     }
     #modal-content {
         margin-top: 0;
