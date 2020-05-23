@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 
 export function generateBody(current_project) {
     let body = document.createElement('div')
+    body.id = 'body'
     let todo_list = document.createElement('div')
     todo_list.id = 'todo-list'
     for (const todo in current_project.getTodoItems()) {

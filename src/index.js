@@ -22,9 +22,13 @@ let projectCounter = 0
 let projects = [TodoProject(projectCounter++, 'Default Project')];
 
 //testing scrollbar with lots of projects
-// for (let i = 0; i < 25; i++) {
-//     projects.push(TodoProject('Default Project'))
-// }
+for (let i = 0; i < 25; i++) {
+    if(i==24){
+        projects.push(TodoProject(projectCounter++,'last Project'))
+    }else{
+    projects.push(TodoProject(projectCounter++,'Default Project'))
+    }
+}
 let current_project = projects[0]
 current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 1))
 current_project.addTodoItem(TodoItem(1, 'second', new Date('1999', '09', '10'), 'asap', 2))
