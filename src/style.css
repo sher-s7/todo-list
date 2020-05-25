@@ -10,7 +10,6 @@ html {
 
     --bg: #2e2e2e;
     --border: #eec9a4;
-    height: 100%;
 }
 body {
     background-color: var(--dark);
@@ -18,10 +17,16 @@ body {
     margin: 0;
     height: 100%;
 }
+body.modal-open{
+    overflow: hidden;
+}
 header {
     background-color: var(--primary);
     width: 100%;
     height: 52px;
+    z-index: 1;
+
+
 }
 
 header ul {
@@ -45,6 +50,7 @@ header ul li {
     align-items: center;
     font-size: 17px;
     font-weight: 300;
+    background-color: var(--dark);
 }
 #sort-bar div {
     width: 100%;
@@ -187,6 +193,7 @@ h3 {
     background-color: var(--primary);
     width: 100%;
     height: calc(100% - 52px);
+    top: 52px;
     overflow-y: scroll;
     overflow-x: hidden;
     position: fixed;
@@ -651,8 +658,8 @@ td:nth-child(3) {
 .kebab-dropdown {
     position: absolute;
     list-style: none;
-    top: 15px;
-    right: 8px;
+    top: -30px;
+    right: 21px;
     z-index: 10;
     width: 100px;
     text-align: center;
@@ -684,7 +691,9 @@ td:nth-child(3) {
                                     supported by Chrome, Opera and Firefox */
 }
 
-/* Large Devices */
+footer{
+    display: none;
+}
 
 @media (max-width: 360px) {
     #description {
@@ -695,11 +704,15 @@ td:nth-child(3) {
     }
 }
 
-
+/* Large Devices */
 @media (min-width: 600px) {
+    .modal-open{
+        overflow: unset !important;
+    }
     #body {
         width: 60vw;
         margin: 0 auto;
+        margin-top: 136px;
     }
     #todo-list,
     #completed-todo-list {
@@ -724,6 +737,9 @@ td:nth-child(3) {
     }
     header {
         height: 99px;
+        position: fixed;
+        top: 0;
+        z-index: 1;
     }
     header ul {
         display: grid;
@@ -810,7 +826,8 @@ td:nth-child(3) {
     }
     #sidenav {
         width: 300px;
-        height: calc(100% - 100px);
+        height: calc(100% - 99px);
+        top: 99px;
     }
     .header-list li:nth-child(2),
     .header-list li:last-child {
@@ -819,6 +836,7 @@ td:nth-child(3) {
 
     #sort-bar {
         cursor: default;
+        background-color: var(--dark);
     }
 
     #sort-options {
@@ -836,9 +854,10 @@ td:nth-child(3) {
 
     #modal {
         width: 582px;
-        height: 400px;
+        max-height: 400px;
         top: 330px;
         left: 50%;
+        top: 50%;
         transform: translate(-50%, -50%);
         border: 2px solid var(--border);
         overflow-y: auto;
@@ -897,5 +916,15 @@ td:nth-child(3) {
         grid-row-start: 3;
         grid-column-start: 2;
         margin-top: 38px;
+    }
+    footer{
+        display: block !important;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+    footer img:hover{
+        transform: scale(1.1);
     }
 }

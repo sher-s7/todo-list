@@ -50,6 +50,7 @@ export function generateHeader(current_project){
     li.id = 'plus-li'
     li.appendChild(plusDiv)
     li.appendChild(plusText)
+    
     ul.appendChild(li)
 
 
