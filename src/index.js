@@ -263,6 +263,7 @@ document.body.addEventListener('click', (e) => {
         current_project = undefined
         console.log(current_project)
     }
+    
 
 });
 

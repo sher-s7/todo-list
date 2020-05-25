@@ -90,7 +90,6 @@ export function generateModal() {
     modalContent.appendChild(modalForm)
     modal.appendChild(modalContent)
 
-
     return modal
 
 

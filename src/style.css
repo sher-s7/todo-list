@@ -95,6 +95,10 @@ header ul li {
 #sort-options li:active {
     background-color: #181a1f;
 }
+#current-sort,
+#sort-direction {
+    cursor: pointer;
+}
 #hamburger-icon {
     vertical-align: middle;
 }
@@ -156,7 +160,7 @@ header ul li {
     transform: rotate(45deg) translate(-7.5px, -7px);
 }
 
-.header-list li:nth-child(2){
+.header-list li:nth-child(2) {
     display: none;
 }
 .header-list li:nth-child(4) {
@@ -691,25 +695,27 @@ td:nth-child(3) {
     }
 }
 
+
 @media (min-width: 600px) {
-    #body{
+    #body {
         width: 60vw;
         margin: 0 auto;
     }
-    #todo-list, #completed-todo-list{
+    #todo-list,
+    #completed-todo-list {
         width: 100%;
     }
     h1 {
         display: initial;
         /* margin-left: 3vw; */
         font-weight: 900;
-        font-size: 62px;
+        font-size: 55px;
         color: var(--primary);
         text-shadow: -1px -1px 0 var(--border), 1px -1px 0 var(--border), -1px 1px 0 var(--border),
             1px 1px 0 var(--border);
     }
     h2 {
-        font-size: 35px;
+        font-size: 25px;
         /* margin-left: 23vw; */
         white-space: unset;
         overflow: unset;
@@ -720,7 +726,24 @@ td:nth-child(3) {
         height: 99px;
     }
     header ul {
-        justify-content: space-evenly;
+        display: grid;
+        grid-template-columns: 8.6% 24.6% 16.6% 16.6% 16.6% 16.6%;
+        grid-template-rows: 99px;
+    }
+    header ul li:first-child{
+        grid-column-start: 1;
+    }
+    header ul li:nth-child(2){
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+    header ul li:nth-child(3){
+        grid-column-start: 3;
+        grid-column-end: 5;
+    }
+    header ul li:last-child{
+        grid-column-start: 5;
+        grid-column-end: 7;
     }
     header ul li {
         margin-top: 25px;
@@ -740,7 +763,8 @@ td:nth-child(3) {
         /* margin-left: 1vw; */
     }
 
-    #plusbar1, #plusbar2{
+    #plusbar1,
+    #plusbar2 {
         width: 25px;
     }
 
@@ -752,9 +776,8 @@ td:nth-child(3) {
         font-weight: 400;
         vertical-align: middle;
         margin-left: 7px;
-        
     }
-    #plus-li{
+    #plus-li {
         border: 1px solid transparent;
         height: 40px;
         line-height: 40px;
@@ -763,19 +786,20 @@ td:nth-child(3) {
         padding-bottom: 2px;
         cursor: pointer;
         transition: 0.3s;
+        width: fit-content;
     }
-    #plus-li:hover{
+    #plus-li:hover {
         border: 1px solid var(--border);
     }
-    #plus-li:hover #plus-text{
+    #plus-li:hover #plus-text {
         color: var(--border);
         transition-duration: 0.3s;
     }
-    #project-modal{
+    #project-modal {
         width: 250px;
         height: 140px;
     }
-    #project-modal.hidden{
+    #project-modal.hidden {
         width: 240px;
     }
     #plus-div:hover {
@@ -793,15 +817,15 @@ td:nth-child(3) {
         display: initial;
     }
 
-    #sort-bar{
+    #sort-bar {
         cursor: default;
     }
 
-    #sort-options{
+    #sort-options {
         width: 145px;
-        top: 121px;
+        top: 126px;
     }
-    #sort-options li:hover{
+    #sort-options li:hover {
         background-color: #181a1f;
     }
 
@@ -809,8 +833,6 @@ td:nth-child(3) {
     .todo-item {
         cursor: pointer;
     }
-
-
 
     #modal {
         width: 582px;
@@ -821,6 +843,12 @@ td:nth-child(3) {
         border: 2px solid var(--border);
         overflow-y: auto;
         box-shadow: 0 0 10px black;
+        transition-duration: 0.2s;
+    }
+    #modal.hidden {
+        display: initial !important;
+        visibility: hidden;
+        opacity: 0;
     }
     #modal-content {
         margin-top: 0;
