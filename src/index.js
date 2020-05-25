@@ -21,23 +21,23 @@ let dropdown_arrows = document.getElementsByClassName('expand-dropdown');
 let angle = 0;
 let projectCounter = 0
 let projects = [TodoProject(projectCounter++, 'Default Project')];
-
+var task_to_edit = undefined;
 //testing scrollbar with lots of projects
-for (let i = 0; i < 25; i++) {
-    if (i == 24) {
-        projects.push(TodoProject(projectCounter++, 'last Project'))
-    } else {
-        projects.push(TodoProject(projectCounter++, 'Default Project'))
-    }
-}
+// for (let i = 0; i < 25; i++) {
+//     if (i == 24) {
+//         projects.push(TodoProject(projectCounter++, 'last Project'))
+//     } else {
+//         projects.push(TodoProject(projectCounter++, 'Default Project'))
+//     }
+// }
 let current_project = projects[0]
-current_project.addTodoItem(TodoItem(0, 'Hello', new Date(), 'asap', 1))
-current_project.addTodoItem(TodoItem(1, 'second', new Date('1999', '09', '10'), 'asap', 2))
-current_project.addTodoItem(TodoItem(2, 'third', new Date('2020', '09', '11'), 'asap', 3))
-current_project.addTodoItem(TodoItem(3, 'fourth', new Date('2011', '05', '05'), 'asap', 3))
 let header = generateHeader(current_project);
 
 contentContainer.appendChild(generateModal())
+let modalBG = document.createElement('div')
+modalBG.id = 'modal-bg'
+modalBG.className = 'hidden'
+contentContainer.appendChild(modalBG)
 contentContainer.appendChild(generateProjectModal())
 contentContainer.appendChild(header);
 let sidenav = generateSidebar(projects);
@@ -86,23 +86,24 @@ document.getElementById('new-project').addEventListener('click', () => {
     document.getElementById('new-project-form').querySelector('input[type=submit]').id = 'project-submit'
 })
 
-
 function plusClick() {
+    document.getElementById('modal').classList.toggle('hidden')
+    modalBG.classList.toggle('hidden')
     if (angle % 45 == 0) {
-        document.getElementById('modal-form').reset()
-        document.querySelector('.priority-option#priority-1').classList.remove('darken')
-        document.querySelector('.priority-option#priority-2').classList.add('darken')
-        document.querySelector('.priority-option#priority-3').classList.add('darken')
+        setTimeout(function() {
+            document.getElementById('modal-form').reset()
+            document.querySelector('.priority-option#priority-1').classList.remove('darken')
+            document.querySelector('.priority-option#priority-2').classList.add('darken')
+            document.querySelector('.priority-option#priority-3').classList.add('darken')
+        }, 400)
         document.getElementsByTagName('select')[0].selectedIndex = '0'
     }
 
     angle += 45
     document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
-    document.getElementById('edit').classList.add('hidden')
-    document.getElementById('modal-header-edit').classList.add('hidden')
-    document.getElementById('submit').classList.remove('hidden')
-    document.getElementById('modal-header-new').classList.remove('hidden')
-    document.getElementById('modal').classList.toggle('hidden')
+    document.getElementsByClassName('submit')[0].id = 'submit'
+    document.getElementById('modal-header').innerText = 'NEW TASK'
+    
     if (document.getElementById('modal').classList.contains('hidden') && document.getElementById('sidenav').classList.contains('hide-nav')) {
             document.querySelector('body').classList.remove('modal-open')
     } else {
@@ -113,6 +114,9 @@ function plusClick() {
     }
 }
 
+modalBG.addEventListener('click',()=>{
+    plusClick()
+})
 document.getElementById('plus-li').addEventListener('click', () => {
     plusClick()
 })
@@ -161,6 +165,8 @@ document.body.addEventListener('click', (e) => {
     if (e.target.classList.contains('edit-project-button')) {
         document.getElementById('project-modal').classList.remove('hidden')
     }
+
+
 
     //expanded/close sidebar, toggle hamburger animation
     if (e.target.id == 'hamburger-icon' || e.target.classList.contains('bar')) {
@@ -212,43 +218,44 @@ document.body.addEventListener('click', (e) => {
     }
 
     //edit task functionality
+    
     if (e.target.classList.contains('edit-button')) {
-        let task_to_edit = current_project.getTodoItems()[e.target.classList[1]]
+        task_to_edit = current_project.getTodoItems()[e.target.classList[1]]
         angle += 45
         document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
 
-        document.getElementById('edit').classList.remove('hidden')
-        document.getElementById('submit').classList.add('hidden')
-        document.getElementById('modal-header-edit').classList.remove('hidden')
-        document.getElementById('modal-header-new').classList.add('hidden')
+        document.getElementById('modal-header').innerText = 'EDIT'
         let modalform = document.getElementById('modal-form')
         modalform.querySelector('.title').value = task_to_edit.title
         modalform.querySelector('#description').value = task_to_edit.description
         modalform.querySelector('.duedate').value = format(task_to_edit.due_date, 'yyyy-MM-dd')
         modalform.querySelector(`#priority-${task_to_edit.priority}`).click()
+        modalform.querySelector('input[type=submit]').id = 'edit'
         document.getElementById('modal').classList.toggle('hidden')
+        modalBG.classList.toggle('hidden')
         document.querySelector('body').classList.add('modal-open')
 
-        document.getElementById('edit').onclick = function () {
-            task_to_edit.title = modalform.querySelector('.title').value
-            task_to_edit.description = modalform.querySelector('#description').value
-            let splittedDate = modalform.querySelector('.duedate').value.split('-')
-            let date = new Date()
-            date.setFullYear(splittedDate[0])
-            date.setMonth(splittedDate[1] - 1)
-            date.setDate(splittedDate[2])
-            task_to_edit.due_date = date
-            task_to_edit.priority = Number(modalform.querySelector('.hidden-priority').value)
-            let updatedTask = generateTaskTemplate(task_to_edit, task_to_edit.completed)
-            let todoItem = document.getElementById(task_to_edit.id)
-            todoItem.textContent = ''
-            todoItem.appendChild(updatedTask[0])
-            todoItem.appendChild(updatedTask[1])
-            document.getElementById(`${current_project.getId()}${e.target.classList[1]}`).innerText = truncate(task_to_edit.title, 20, 17)
 
-            plusClick()
-        };
-        sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
+        // document.getElementById('edit').onclick = function () {
+        //     task_to_edit.title = modalform.querySelector('.title').value
+        //     task_to_edit.description = modalform.querySelector('#description').value
+        //     let splittedDate = modalform.querySelector('.duedate').value.split('-')
+        //     let date = new Date()
+        //     date.setFullYear(splittedDate[0])
+        //     date.setMonth(splittedDate[1] - 1)
+        //     date.setDate(splittedDate[2])
+        //     task_to_edit.due_date = date
+        //     task_to_edit.priority = Number(modalform.querySelector('.hidden-priority').value)
+        //     let updatedTask = generateTaskTemplate(task_to_edit, task_to_edit.completed)
+        //     let todoItem = document.getElementById(task_to_edit.id)
+        //     todoItem.textContent = ''
+        //     todoItem.appendChild(updatedTask[0])
+        //     todoItem.appendChild(updatedTask[1])
+        //     document.getElementById(`${current_project.getId()}${e.target.classList[1]}`).innerText = truncate(task_to_edit.title, 20, 17)
+
+        //     plusClick()
+        // };
+        // sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
     }
 
     if (e.target.classList.contains('delete-button')) {
@@ -266,7 +273,7 @@ document.body.addEventListener('click', (e) => {
     }
 
     //change current project
-    if (e.target.classList.contains('sidenav-project-name')) {
+    if ((e.target.classList.contains('sidenav-project') || e.target.parentNode.classList.contains('sidenav-project')) && !e.target.classList.contains('expand-dropdown') && !e.target.classList.contains('sidenav-kebab')) {
         current_project = projects.find(project => project.getId() == e.target.dataset.project)
         document.getElementById('project-name').innerText = current_project.getName()
         let todolist = document.getElementById('todo-list')
@@ -287,9 +294,9 @@ document.body.addEventListener('click', (e) => {
     }
 
     if (e.target.classList.contains('delete-project-button')) {
-        console.log(current_project)
+        
         current_project = undefined
-        console.log(current_project)
+        
     }
 
 
@@ -322,35 +329,55 @@ for (const priority of document.getElementsByClassName('priority-option')) {
 // Modal Form event listener
 document.getElementById('modal-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    let splittedDate = e.target[2].value.split('-')
-    let date = new Date()
-    date.setFullYear(splittedDate[0])
-    date.setMonth(splittedDate[1] - 1)
-    date.setDate(splittedDate[2])
-    let newItem = TodoItem(current_project.getCounter(), e.target[0].value, date, e.target[1].value, e.target[3].value)
-    current_project.addTodoItem(newItem)
+    if(e.target.querySelector('input[type=submit').id == 'submit'){
+        let splittedDate = e.target[2].value.split('-')
+        let date = new Date()
+        date.setFullYear(splittedDate[0])
+        date.setMonth(splittedDate[1] - 1)
+        date.setDate(splittedDate[2])
+        let newItem = TodoItem(current_project.getCounter(), e.target[0].value, date, e.target[1].value, e.target[3].value)
+        current_project.addTodoItem(newItem)
 
-    //update sidebar with new item
-    let item = document.createElement('li')
-    item.className = 'sidenav-todo';
-    item.id = `${current_project.getId()}${newItem.id}`
-    item.innerHTML = truncate(newItem.title, 20, 17)
-    document.getElementById(`project-${current_project.getId()}`).appendChild(item)
+        //update sidebar with new item
+        let item = document.createElement('li')
+        item.className = 'sidenav-todo';
+        item.id = `${current_project.getId()}${newItem.id}`
+        item.innerHTML = truncate(newItem.title, 20, 17)
+        document.getElementById(`project-${current_project.getId()}`).appendChild(item)
 
-    document.getElementById('todo-list').appendChild(generateFullTaskTemplate(newItem, generateTaskTemplate(newItem, newItem.completed)))
+        document.getElementById('todo-list').appendChild(generateFullTaskTemplate(newItem, generateTaskTemplate(newItem, newItem.completed)))
+        e.target.reset()
+
+        //reset priority buttons default selection
+        document.querySelector('.priority-option#priority-1').classList.remove('darken')
+        document.querySelector('.priority-option#priority-2').classList.add('darken')
+        document.querySelector('.priority-option#priority-3').classList.add('darken')
+        document.getElementsByTagName('select')[0].selectedIndex = '0'
+
+        angle += 45
+        document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
+        document.getElementById('modal').classList.toggle('hidden')
+        modalBG.classList.toggle('hidden')
+        document.querySelector('body').classList.remove('modal-open')
+    }else{
+        task_to_edit.title = e.target.querySelector('.title').value
+        task_to_edit.description = e.target.querySelector('#description').value
+        let splittedDate = e.target.querySelector('.duedate').value.split('-')
+        let date = new Date()
+        date.setFullYear(splittedDate[0])
+        date.setMonth(splittedDate[1] - 1)
+        date.setDate(splittedDate[2])
+        task_to_edit.due_date = date
+        task_to_edit.priority = Number(e.target.querySelector('.hidden-priority').value)
+        let updatedTask = generateTaskTemplate(task_to_edit, task_to_edit.completed)
+        let todoItem = document.getElementById(task_to_edit.id)
+        todoItem.textContent = ''
+        todoItem.appendChild(updatedTask[0])
+        todoItem.appendChild(updatedTask[1])
+        document.getElementById(`${current_project.getId()}${task_to_edit.id}`).innerText = truncate(task_to_edit.title, 20, 17)
+        plusClick();
+    }
     sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
-    e.target.reset()
-
-    //reset priority buttons default selection
-    document.querySelector('.priority-option#priority-1').classList.remove('darken')
-    document.querySelector('.priority-option#priority-2').classList.add('darken')
-    document.querySelector('.priority-option#priority-3').classList.add('darken')
-    document.getElementsByTagName('select')[0].selectedIndex = '0'
-
-    angle += 45
-    document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
-    document.getElementById('modal').classList.toggle('hidden')
-    document.querySelector('body').classList.remove('modal-open')
 });
 
 document.getElementById('new-project-form').addEventListener('submit', (e) => {
@@ -386,4 +413,30 @@ document.getElementById('new-project-form').addEventListener('submit', (e) => {
     }, 400);
 });
 
+document.getElementById('clear-button').addEventListener('click', () => {
+    let completed_list = document.getElementById('completed-todo-list')
+    if (completed_list.childElementCount > 0) {
+        let completedtasks = completed_list.childNodes;
+        (function myLoop(i) {
+            setTimeout(function () {
+                completedtasks[completed_list.childElementCount - (i + 1)].style.transform = 'translate(50px)'
+                completedtasks[completed_list.childElementCount - (i + 1)].style.opacity = '0'
+                --i
+                if (i > -1) {
+                    myLoop(i);
+                } else {
+                    setTimeout(function () {
+                        completed_list.textContent = ''
+                    }, 200);
+                }
+            }, 100)
+        })(completed_list.childElementCount - 1);
+    }
+    for(const task in current_project.getTodoItems()){
+        if(current_project.getTodoItems()[task].completed){
+            document.getElementById(`${current_project.getId()}${task}`).remove()
+            delete current_project.getTodoItems()[task]
+        }
+    }
+});
 // document.querySelector('footer').addEventListener('click')

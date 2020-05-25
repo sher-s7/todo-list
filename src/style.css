@@ -226,7 +226,7 @@ h3 {
     /* width: 15px; */
 }
 #new-project {
-    margin: 0 auto;
+    margin: 10px auto;
     height: 32px;
     padding-left: 26px;
     padding-right: 26px;
@@ -235,7 +235,6 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
     font-weight: 600;
     color: white;
     background-color: var(--bg);
@@ -249,8 +248,16 @@ h3 {
 }
 .sidenav-project {
     font-weight: 500;
-    font-size: 19px;
+    font-size: 17px;
     margin-left: -11px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.sidenav-project:hover{
+    background-color: var(--dark);
 }
 
 .expand-dropdown {
@@ -297,8 +304,7 @@ h3 {
     margin-top: 12px;
     position: relative;
 }
-#modal-header-new,
-#modal-header-edit {
+#modal-header{
     display: inline-block;
     color: var(--dark);
     text-shadow: -1px -1px 0 var(--border), 1px -1px 0 var(--border), -1px 1px 0 var(--border), 1px 1px 0 var(--border);
@@ -855,7 +861,6 @@ footer{
     #modal {
         width: 582px;
         max-height: 400px;
-        top: 330px;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
@@ -863,6 +868,14 @@ footer{
         overflow-y: auto;
         box-shadow: 0 0 10px black;
         transition-duration: 0.2s;
+    }
+    #modal-bg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 50;
     }
     #modal.hidden {
         display: initial !important;
@@ -874,8 +887,7 @@ footer{
         position: relative;
         height: 100%;
     }
-    #modal-header-new,
-    #modal-header-edit {
+    #modal-header{
         margin-top: 14px;
     }
     #modal-form {

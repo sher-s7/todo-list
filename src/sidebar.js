@@ -27,6 +27,7 @@ export function generateSidebar(projects) {
 export function generateSidebarProject(projects, project) {
     let sidebarItem = document.createElement('ul');
     sidebarItem.id = `project-${project.getId()}`
+    sidebarItem.dataset.project = project.getId()
     let arrow = document.createElement('span')
     arrow.className = 'expand-dropdown'
     arrow.innerHTML = '▶&#xFE0E;' 
