@@ -1,18 +1,22 @@
 import { truncate } from './truncate'
 import { format } from 'date-fns'
 
+
 export function generateBody(current_project) {
     let body = document.createElement('div')
     body.id = 'body'
     let todo_list = document.createElement('div')
     todo_list.id = 'todo-list'
+
+    let completed_list = document.createElement('div')
+    completed_list.id = 'completed-todo-list'
+
     for (const todo in current_project.getTodoItems()) {
         let current_todo = current_project.getTodoItems()[todo]
         let todoDiv = generateFullTaskTemplate(current_todo, generateTaskTemplate(current_todo, current_todo.completed))
-        todo_list.appendChild(todoDiv)
+        current_todo.completed ? completed_list.appendChild(todoDiv) : todo_list.appendChild(todoDiv)
     }
-    let completed_list = document.createElement('div')
-    completed_list.id = 'completed-todo-list'
+    
 
     let clear_button = document.createElement('button')
     clear_button.id = 'clear-button'

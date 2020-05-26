@@ -212,13 +212,13 @@ h3 {
     will-change: transform;
 }
 
-#sidenav::-webkit-scrollbar {
+#sidenav::-webkit-scrollbar, h2::-webkit-scrollbar {
     width: 15px;
 }
-#sidenav::-webkit-scrollbar-track {
+#sidenav::-webkit-scrollbar-track, h2::-webkit-scrollbar-track {
     background: var(--dark);
 }
-#sidenav::-webkit-scrollbar-thumb {
+#sidenav::-webkit-scrollbar-thumb, h2::-webkit-scrollbar-thumb {
     background-color: var(--secondary);
     border-radius: 9px;
     border: 4px solid transparent;
@@ -736,10 +736,9 @@ footer{
     h2 {
         font-size: 25px;
         /* margin-left: 23vw; */
-        white-space: unset;
-        overflow: unset;
-        text-overflow: unset;
+        overflow-x: auto;
         width: unset;
+        text-overflow: unset;
     }
     header {
         height: 99px;

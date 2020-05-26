@@ -1,4 +1,5 @@
 import { truncate } from './truncate'
+import { setProject } from './index'
 export function generateSidebar(projects) {
     const sidenav = document.createElement('div');
     sidenav.id = 'sidenav'
@@ -72,7 +73,10 @@ export function generateSidebarProject(projects, project) {
     
 
     editButton.querySelector('.delete-project-button').addEventListener('click', () =>{
+        console.log(projects)
         projects.splice(projects.indexOf(project), 1)
+        console.log(projects)
+        setProject(projects)
         sidebarItem.remove()
         if(projects.length == 0){
             document.getElementById('plus-div').style.transitionDuration = '0s';
@@ -83,6 +87,7 @@ export function generateSidebarProject(projects, project) {
             document.getElementById('plus-li').style.visibility = 'hidden'
             document.getElementById('project-name').innerText = ''
             document.getElementById('todo-list').innerText = ''
+            document.getElementById('completed-todo-list').innerText = ''
         }
     })
 

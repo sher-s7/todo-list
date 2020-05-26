@@ -14,13 +14,45 @@ import { generateSidebar, generateSidebarProject } from './sidebar'
 import { generateModal } from './newItemModal'
 import { generateProjectModal } from './newProjectModal'
 import { truncate } from './truncate'
-import List from 'list.js';
 
-let dropdown_arrows = document.getElementsByClassName('expand-dropdown');
 
 let angle = 0;
 let projectCounter = 0
-let projects = [TodoProject(projectCounter++, 'Default Project')];
+let projects = JSON.parse(localStorage.getItem('projects') || '[]');
+console.log(projects.length)
+let current_project;
+if (projects.length == 0) {
+    console.log('hi')
+    projects.push(TodoProject(projectCounter++, 'Default Project'))
+    console.log(projects)
+    current_project = projects[0]
+} else {
+    console.log(projects)
+    projects = projects.map(proj => {
+        let newProj = TodoProject(projectCounter++, proj.name, proj.tasks)
+        newProj.setCounter(proj.counter)
+        // console.log(newProj.getTodoItems())
+        return newProj
+    })
+    current_project = projects[JSON.parse(localStorage.getItem('currentProject') || '0')]
+}
+
+console.log(current_project)
+function saveToLocalStorage() {
+    let projs = []
+    for (const project of projects) {
+        let projObj = {
+            counter: project.getCounter(),
+            name: project.getName(),
+            tasks: project.getTodoItems()
+        }
+        projs.push(projObj)
+    }
+    localStorage.setItem('projects', JSON.stringify(projs))
+    localStorage.setItem('currentProject', projects.indexOf(current_project))
+
+}
+
 var task_to_edit = undefined;
 //testing scrollbar with lots of projects
 // for (let i = 0; i < 25; i++) {
@@ -30,7 +62,9 @@ var task_to_edit = undefined;
 //         projects.push(TodoProject(projectCounter++, 'Default Project'))
 //     }
 // }
-let current_project = projects[0]
+
+
+
 let header = generateHeader(current_project);
 
 contentContainer.appendChild(generateModal())
@@ -42,7 +76,7 @@ contentContainer.appendChild(generateProjectModal())
 contentContainer.appendChild(header);
 let sidenav = generateSidebar(projects);
 contentContainer.appendChild(sidenav);
-contentContainer.appendChild(generateBody(projects[0]))
+contentContainer.appendChild(generateBody(current_project))
 let githubLogo = new Image()
 githubLogo.src = ghub
 let githubLink = document.createElement('a')
@@ -90,11 +124,12 @@ function plusClick() {
     document.getElementById('modal').classList.toggle('hidden')
     modalBG.classList.toggle('hidden')
     if (angle % 45 == 0) {
-        setTimeout(function() {
+        setTimeout(function () {
             document.getElementById('modal-form').reset()
             document.querySelector('.priority-option#priority-1').classList.remove('darken')
             document.querySelector('.priority-option#priority-2').classList.add('darken')
             document.querySelector('.priority-option#priority-3').classList.add('darken')
+            document.getElementById('modal-header').innerText = 'NEW TASK'
         }, 400)
         document.getElementsByTagName('select')[0].selectedIndex = '0'
     }
@@ -102,19 +137,19 @@ function plusClick() {
     angle += 45
     document.getElementById('plus-div').style.transform = `rotate(${angle}deg)`
     document.getElementsByClassName('submit')[0].id = 'submit'
-    document.getElementById('modal-header').innerText = 'NEW TASK'
     
+
     if (document.getElementById('modal').classList.contains('hidden') && document.getElementById('sidenav').classList.contains('hide-nav')) {
-            document.querySelector('body').classList.remove('modal-open')
+        document.querySelector('body').classList.remove('modal-open')
     } else {
-        if(window.innerWidth < 600){
-            window.scrollTo(0,0)
+        if (window.innerWidth < 600) {
+            window.scrollTo(0, 0)
         }
         document.querySelector('body').classList.add('modal-open')
     }
 }
 
-modalBG.addEventListener('click',()=>{
+modalBG.addEventListener('click', () => {
     plusClick()
 })
 document.getElementById('plus-li').addEventListener('click', () => {
@@ -174,8 +209,8 @@ document.body.addEventListener('click', (e) => {
         if (document.getElementById('sidenav').classList.contains('hide-nav')) {
             document.querySelector('body').classList.remove('modal-open')
         } else {
-            if(window.innerWidth < 600){
-                window.scrollTo(0,0)
+            if (window.innerWidth < 600) {
+                window.scrollTo(0, 0)
             }
             document.querySelector('body').classList.add('modal-open')
         }
@@ -215,10 +250,11 @@ document.body.addEventListener('click', (e) => {
         }
         current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed = !current_project.getTodoItems()[e.target.parentNode.parentNode.parentNode.id].completed
         document.getElementById(`${current_project.getId()}${e.target.parentNode.parentNode.parentNode.id}`).classList.toggle('completed-item')
+        saveToLocalStorage()
     }
 
     //edit task functionality
-    
+
     if (e.target.classList.contains('edit-button')) {
         task_to_edit = current_project.getTodoItems()[e.target.classList[1]]
         angle += 45
@@ -291,12 +327,13 @@ document.body.addEventListener('click', (e) => {
         sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
         document.getElementById('plus-li').style.visibility = 'visible'
         document.getElementById('plus-div').style.transitionDuration = '0.2s';
+        saveToLocalStorage()
     }
 
     if (e.target.classList.contains('delete-project-button')) {
-        
+
         current_project = undefined
-        
+
     }
 
 
@@ -329,7 +366,7 @@ for (const priority of document.getElementsByClassName('priority-option')) {
 // Modal Form event listener
 document.getElementById('modal-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    if(e.target.querySelector('input[type=submit').id == 'submit'){
+    if (e.target.querySelector('input[type=submit').id == 'submit') {
         let splittedDate = e.target[2].value.split('-')
         let date = new Date()
         date.setFullYear(splittedDate[0])
@@ -359,7 +396,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
         document.getElementById('modal').classList.toggle('hidden')
         modalBG.classList.toggle('hidden')
         document.querySelector('body').classList.remove('modal-open')
-    }else{
+    } else {
         task_to_edit.title = e.target.querySelector('.title').value
         task_to_edit.description = e.target.querySelector('#description').value
         let splittedDate = e.target.querySelector('.duedate').value.split('-')
@@ -378,6 +415,7 @@ document.getElementById('modal-form').addEventListener('submit', (e) => {
         plusClick();
     }
     sortOptions([document.getElementById('current-sort').dataset.sort, document.getElementById('sort-direction').dataset.direction])
+    saveToLocalStorage()
 });
 
 document.getElementById('new-project-form').addEventListener('submit', (e) => {
@@ -411,6 +449,7 @@ document.getElementById('new-project-form').addEventListener('submit', (e) => {
     setTimeout(function () {
         e.target.reset();
     }, 400);
+    saveToLocalStorage()
 });
 
 document.getElementById('clear-button').addEventListener('click', () => {
@@ -432,11 +471,19 @@ document.getElementById('clear-button').addEventListener('click', () => {
             }, 100)
         })(completed_list.childElementCount - 1);
     }
-    for(const task in current_project.getTodoItems()){
-        if(current_project.getTodoItems()[task].completed){
-            document.getElementById(`${current_project.getId()}${task}`).remove()
-            delete current_project.getTodoItems()[task]
+    if (current_project) {
+        for (const task in current_project.getTodoItems()) {
+            if (current_project.getTodoItems()[task].completed) {
+                document.getElementById(`${current_project.getId()}${task}`).remove()
+                delete current_project.getTodoItems()[task]
+            }
         }
     }
+    saveToLocalStorage()
 });
+
+export function setProject(new_project) {
+    projects = new_project
+    saveToLocalStorage()
+}
 // document.querySelector('footer').addEventListener('click')
