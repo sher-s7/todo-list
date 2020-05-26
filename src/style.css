@@ -334,11 +334,11 @@ h3 {
     color: white;
     text-indent: 5px;
 }
-#submit {
-    background-color: var(--bg);
-    color: var(--border);
+#submit, #edit {
+    background-color: transparent;
+    color: var(--secondary);
     font-weight: 300;
-    border-radius: 35px;
+    border-radius: 5px;
 }
 
 ::placeholder {
@@ -929,6 +929,12 @@ footer{
         grid-row-start: 3;
         grid-column-start: 2;
         margin-top: 38px;
+        transition-duration: 0.2s;
+    }
+
+    #submit:hover, #edit:hover{
+        background-color: var(--bg);
+        color: var(--border);
     }
     footer{
         display: block !important;
