@@ -85,6 +85,7 @@ header ul li {
     border: #171e25;
     padding-left: 5px;
     margin: 5px;
+    color: var(--border);
 }
 
 #sort-direction {
@@ -95,6 +96,7 @@ header ul li {
 }
 #current-sort {
     padding: 0 15px;
+    color: var(--border);
 }
 #current-sort:active,
 #sort-direction:active,
@@ -645,7 +647,7 @@ td:nth-child(3) {
     color: white;
     padding: 0;
     cursor: pointer;
-    top: 0;
+    top: -2px;
     left: -5px;
 }
 .sidenav-kebab .kebab-dropdown {
@@ -846,7 +848,7 @@ footer{
 
     #sort-options {
         width: 145px;
-        top: 126px;
+        top: 127px;
     }
     #sort-options li:hover {
         background-color: #181a1f;
