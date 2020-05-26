@@ -34,7 +34,7 @@ export function generateSidebarProject(projects, project) {
     arrow.innerHTML = '▶&#xFE0E;' 
 
     let projectname = document.createElement('span')
-    projectname.innerHTML = `${truncate(project.getName().toUpperCase(), 16, 13)}`
+    projectname.innerHTML = `${truncate(project.getName().toUpperCase(), 15, 12)}`
     projectname.dataset.project = `${project.getId()}`
     projectname.className = 'sidenav-project-name'
 
