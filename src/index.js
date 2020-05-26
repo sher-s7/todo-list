@@ -19,25 +19,20 @@ import { truncate } from './truncate'
 let angle = 0;
 let projectCounter = 0
 let projects = JSON.parse(localStorage.getItem('projects') || '[]');
-console.log(projects.length)
 let current_project;
 if (projects.length == 0) {
-    console.log('hi')
     projects.push(TodoProject(projectCounter++, 'Default Project'))
-    console.log(projects)
     current_project = projects[0]
 } else {
-    console.log(projects)
     projects = projects.map(proj => {
         let newProj = TodoProject(projectCounter++, proj.name, proj.tasks)
         newProj.setCounter(proj.counter)
-        // console.log(newProj.getTodoItems())
         return newProj
     })
     current_project = projects[JSON.parse(localStorage.getItem('currentProject') || '0')]
 }
 
-console.log(current_project)
+
 function saveToLocalStorage() {
     let projs = []
     for (const project of projects) {

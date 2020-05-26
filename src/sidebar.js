@@ -73,9 +73,7 @@ export function generateSidebarProject(projects, project) {
     
 
     editButton.querySelector('.delete-project-button').addEventListener('click', () =>{
-        console.log(projects)
         projects.splice(projects.indexOf(project), 1)
-        console.log(projects)
         setProject(projects)
         sidebarItem.remove()
         if(projects.length == 0){
