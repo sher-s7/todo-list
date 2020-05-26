@@ -807,7 +807,7 @@ footer{
         padding-bottom: 2px;
         cursor: pointer;
         transition: 0.3s;
-        width: fit-content;
+        width: max-content;
     }
     #plus-li:hover {
         border: 1px solid var(--border);
