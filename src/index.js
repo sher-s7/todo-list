@@ -44,7 +44,9 @@ function saveToLocalStorage() {
         projs.push(projObj)
     }
     localStorage.setItem('projects', JSON.stringify(projs))
+    console.log(current_project)
     localStorage.setItem('currentProject', projects.indexOf(current_project))
+    console.log(current_project)
 
 }
 
@@ -325,12 +327,6 @@ document.body.addEventListener('click', (e) => {
         saveToLocalStorage()
     }
 
-    if (e.target.classList.contains('delete-project-button')) {
-
-        current_project = undefined
-
-    }
-
 
 });
 
@@ -477,8 +473,9 @@ document.getElementById('clear-button').addEventListener('click', () => {
     saveToLocalStorage()
 });
 
-export function setProject(new_project) {
-    projects = new_project
+export function setProject(new_projects) {
+    projects = new_projects
+    current_project = projects.length > 0 ? projects[0] : undefined;
     saveToLocalStorage()
 }
 // document.querySelector('footer').addEventListener('click')
