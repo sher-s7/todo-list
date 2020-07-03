@@ -389,9 +389,10 @@ h3 {
     width: 70vw;
     height: 120px;
     background-color: var(--dark);
-    box-shadow: 0 0 10px black;
+    box-shadow: 0 0 7px 0px #000000ab;
     opacity: 1;
     transition-duration: 0.4s;
+    border-radius: 7px;
 }
 #new-project-form {
     position: absolute;
