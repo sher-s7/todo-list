@@ -584,7 +584,7 @@ td:nth-child(3) {
     height: 26px;
 }
 .todo-title {
-    font-size: 19px;
+    font-size: 16px;
     position: relative;
     transition-duration: 0.2s;
 }
@@ -853,6 +853,10 @@ footer{
     }
     #sort-options li:hover {
         background-color: #181a1f;
+    }
+
+    .todo-title {
+        font-size: 19px;
     }
 
     .todo-main,

@@ -58,7 +58,7 @@ export function generateTaskTemplate(todo, completed) {
 
     let todoTitle = document.createElement('span')
     todoTitle.className = 'todo-title'
-    todoTitle.innerText = truncate(todo.title, 12, 9).toUpperCase()
+    todoTitle.innerText = truncate(todo.title, 15, 12).toUpperCase()
 
     let todoDate = document.createElement('span')
     todoDate.className = 'todo-date'
