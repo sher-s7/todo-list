@@ -44,9 +44,9 @@ function saveToLocalStorage() {
         projs.push(projObj)
     }
     localStorage.setItem('projects', JSON.stringify(projs))
-    console.log(current_project)
+    
     localStorage.setItem('currentProject', projects.indexOf(current_project))
-    console.log(current_project)
+    
 
 }
 
